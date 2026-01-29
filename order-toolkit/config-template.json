@@ -1,0 +1,168 @@
+{
+    "meta": {
+        "title": "Thiệp Cưới | [TÊN CHÚ RỂ] & [TÊN CÔ DÂU]",
+        "description": "Trân trọng kính mời bạn đến dự đám cưới của chúng mình",
+        "themeColor": "#2D3E33",
+        "theme": "[luxury|pastel|traditional]",
+        "musicUrl": "/music/wedding-song.mp3",
+        "seoKeywords": "wedding, invitation, thiệp cưới, [tên chú rể], [tên cô dâu]"
+    },
+    "couple": {
+        "groom": {
+            "name": "[HỌ TÊN ĐẦY ĐỦ CHÚ RỂ]",
+            "shortName": "[TÊN NGẮN CHÚ RỂ]",
+            "image": "/couple-photo.png",
+            "description": "[MÔ TẢ CHÚ RỂ]"
+        },
+        "bride": {
+            "name": "[HỌ TÊN ĐẦY ĐỦ CÔ DÂU]",
+            "shortName": "[TÊN NGẮN CÔ DÂU]",
+            "image": "/couple-photo.png",
+            "description": "[MÔ TẢ CÔ DÂU]"
+        },
+        "coverImage": "/couple-photo.png"
+    },
+    "quotes": [
+        {
+            "content": "Tình yêu không nhìn bằng mắt mà bằng trái tim.",
+            "author": "William Shakespeare"
+        },
+        {
+            "content": "Yêu không chỉ là nhìn nhau, mà là cùng nhau nhìn về một hướng.",
+            "author": "Antoine de Saint-Exupéry"
+        }
+    ],
+    "weddingDate": "[YYYY-MM-DD]T[HH:MM]:00",
+    "venue": {
+        "mapEmbedUrl": "[GOOGLE_MAPS_EMBED_URL]"
+    },
+    "events": [
+        {
+            "title": "Lễ Cưới Nhà Trai",
+            "icon": "🏠",
+            "time": "[GIỜ BẮT ĐẦU] - [GIỜ KẾT THÚC]",
+            "date": "[DD/MM/YYYY]",
+            "location": "[ĐỊA CHỈ NHÀ TRAI]",
+            "mapLink": "[GOOGLE_MAPS_LINK]"
+        },
+        {
+            "title": "Lễ Cưới Nhà Gái",
+            "icon": "🏡",
+            "time": "[GIỜ BẮT ĐẦU] - [GIỜ KẾT THÚC]",
+            "date": "[DD/MM/YYYY]",
+            "location": "[ĐỊA CHỈ NHÀ GÁI]",
+            "mapLink": "[GOOGLE_MAPS_LINK]"
+        },
+        {
+            "title": "Tiệc Cưới",
+            "icon": "🎊",
+            "time": "[GIỜ BẮT ĐẦU] - [GIỜ KẾT THÚC]",
+            "date": "[DD/MM/YYYY]",
+            "location": "[TÊN NHÀ HÀNG, ĐỊA CHỈ]",
+            "mapLink": "[GOOGLE_MAPS_LINK]"
+        }
+    ],
+    "gallery": [
+        {
+            "id": 1,
+            "src": "[URL_ẢNH_1]",
+            "alt": "Ảnh cưới 1"
+        },
+        {
+            "id": 2,
+            "src": "[URL_ẢNH_2]",
+            "alt": "Ảnh cưới 2"
+        },
+        {
+            "id": 3,
+            "src": "[URL_ẢNH_3]",
+            "alt": "Ảnh cưới 3"
+        },
+        {
+            "id": 4,
+            "src": "[URL_ẢNH_4]",
+            "alt": "Ảnh cưới 4"
+        },
+        {
+            "id": 5,
+            "src": "[URL_ẢNH_5]",
+            "alt": "Ảnh cưới 5"
+        },
+        {
+            "id": 6,
+            "src": "[URL_ẢNH_6]",
+            "alt": "Ảnh cưới 6"
+        }
+    ],
+    "guestbook": {
+        "initialMessages": []
+    },
+    "loveStory": [
+        {
+            "date": "[NĂM/THỜI ĐIỂM 1]",
+            "title": "[TIÊU ĐỀ CỘT MỐC 1]",
+            "description": "[MÔ TẢ CỘT MỐC 1]",
+            "image": "/couple-photo.png"
+        },
+        {
+            "date": "[NĂM/THỜI ĐIỂM 2]",
+            "title": "[TIÊU ĐỀ CỘT MỐC 2]",
+            "description": "[MÔ TẢ CỘT MỐC 2]",
+            "image": "/couple-photo.png"
+        },
+        {
+            "date": "[NĂM/THỜI ĐIỂM 3]",
+            "title": "[TIÊU ĐỀ CỘT MỐC 3]",
+            "description": "[MÔ TẢ CỘT MỐC 3]",
+            "image": "/couple-photo.png"
+        },
+        {
+            "date": "[NGÀY CƯỚI]",
+            "title": "Về Chung Một Nhà",
+            "description": "Chúng mình chính thức trở thành vợ chồng, cùng nhau xây dựng tổ ấm hạnh phúc.",
+            "image": "/couple-photo.png"
+        }
+    ],
+    "dressCode": {
+        "description": "Để buổi tiệc thêm phần trang trọng và lên hình thật đẹp, mong quý khách vui lòng diện trang phục theo tone màu chủ đạo nhé!",
+        "note": "Xin vui lòng tránh trang phục màu trắng nguyên bộ.",
+        "palette": [
+            {
+                "color": "#E5D4C0",
+                "name": "Beige"
+            },
+            {
+                "color": "#C9A87C",
+                "name": "Gold"
+            },
+            {
+                "color": "#2D3E33",
+                "name": "Dark Green"
+            },
+            {
+                "color": "#8B5E3C",
+                "name": "Brown"
+            }
+        ]
+    },
+    "bankInfo": [
+        {
+            "id": "groom",
+            "bankName": "[TÊN NGÂN HÀNG CHÚ RỂ]",
+            "accountNumber": "[SỐ TÀI KHOẢN CHÚ RỂ]",
+            "accountName": "[TÊN CHỦ TÀI KHOẢN CHÚ RỂ]",
+            "branch": "CN Hồ Chí Minh",
+            "qrImage": "/qr-code-placeholder.png",
+            "template": "compact"
+        },
+        {
+            "id": "bride",
+            "bankName": "[TÊN NGÂN HÀNG CÔ DÂU]",
+            "accountNumber": "[SỐ TÀI KHOẢN CÔ DÂU]",
+            "accountName": "[TÊN CHỦ TÀI KHOẢN CÔ DÂU]",
+            "branch": "CN Hồ Chí Minh",
+            "qrImage": "/qr-code-placeholder.png",
+            "template": "compact"
+        }
+    ]
+}

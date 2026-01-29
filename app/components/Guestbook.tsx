@@ -18,7 +18,7 @@ const MessageCard = memo(function MessageCard({ msg }: { msg: GuestMessage }) {
                     <div className="flex items-center justify-between mb-2">
                         <h4 className="font-medium text-[#2D3E33] truncate">{msg.name}</h4>
                         <span className="text-xs text-[#2D3E33]/40 flex-shrink-0 ml-2">
-                            {msg.timestamp.toLocaleDateString("vi-VN")}
+                            {new Date(msg.timestamp).toLocaleDateString("vi-VN")}
                         </span>
                     </div>
                     <p className="text-[#2D3E33]/70 text-sm leading-relaxed break-words">

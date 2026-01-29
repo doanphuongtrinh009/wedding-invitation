@@ -171,7 +171,7 @@
             "accountNumber": "1234567890",
             "accountName": "DOAN PHUONG TRINH",
             "branch": "CN Hồ Chí Minh",
-            "qrImage": "/qr-code-placeholder.png",
+            "qrImage": "/qr-vcb.jpg",
             "template": "compact"
         },
         {
@@ -180,7 +180,7 @@
             "accountNumber": "0987654321",
             "accountName": "NGUYEN THI QUYNH TRAM",
             "branch": "CN Sài Gòn",
-            "qrImage": "/qr-code-placeholder.png",
+            "qrImage": "/qr-mb.jpg",
             "template": "compact"
         }
     ]

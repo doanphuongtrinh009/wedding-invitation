@@ -2,7 +2,7 @@
 
 import { memo, useEffect, useRef } from "react";
 import Image from "next/image";
-import { COUPLE } from "@/app/lib/data";
+import { COUPLE, CONFIG } from "@/app/lib/data";
 
 function HeroSectionComponent() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -84,6 +84,33 @@ function HeroSectionComponent() {
                                 fill
                                 style={{ objectFit: 'cover' }}
                             />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Family Info */}
+                <div className="reveal mb-8 w-full px-4" style={{ animationDelay: "0.1s" }}>
+                    <div className="grid grid-cols-2 gap-8 md:gap-16 max-w-2xl mx-auto">
+                        {/* Nhà Trai */}
+                        <div className="text-center">
+                            <h3 className="font-display text-lg md:text-xl text-[var(--color-primary)] mb-2 font-bold">
+                                {CONFIG.family?.groom.title}
+                            </h3>
+                            <div className="space-y-1 font-display text-sm md:text-base text-[var(--color-text)]">
+                                <p className="italic">{CONFIG.family?.groom.father}</p>
+                                <p className="italic">{CONFIG.family?.groom.mother}</p>
+                            </div>
+                        </div>
+
+                        {/* Nhà Gái */}
+                        <div className="text-center">
+                            <h3 className="font-display text-lg md:text-xl text-[var(--color-primary)] mb-2 font-bold">
+                                {CONFIG.family?.bride.title}
+                            </h3>
+                            <div className="space-y-1 font-display text-sm md:text-base text-[var(--color-text)]">
+                                <p className="italic">{CONFIG.family?.bride.father}</p>
+                                <p className="italic">{CONFIG.family?.bride.mother}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

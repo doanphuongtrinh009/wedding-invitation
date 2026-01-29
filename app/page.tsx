@@ -7,6 +7,11 @@ import dynamic from "next/dynamic";
 import { EnvelopeOpening, HeroSection } from "./components";
 
 // Dynamic imports with lazy loading
+const Navigation = dynamic(
+  () => import("./components/Navigation").then((mod) => ({ default: mod.Navigation })),
+  { ssr: false }
+);
+
 const CountdownTimer = dynamic(
   () => import("./components/CountdownTimer").then((mod) => ({ default: mod.CountdownTimer })),
   { loading: () => <SectionSkeleton />, ssr: true }
@@ -42,10 +47,7 @@ const Footer = dynamic(
   { ssr: true }
 );
 
-const MusicToggle = dynamic(
-  () => import("./components/MusicToggle").then((mod) => ({ default: mod.MusicToggle })),
-  { ssr: false }
-);
+
 
 const ThemeSwitcherComp = dynamic(
   () => import("./components/ThemeSwitcher").then((mod) => ({ default: mod.ThemeSwitcher })),
@@ -65,6 +67,11 @@ const DressCode = dynamic(
 const BankInfo = dynamic(
   () => import("./components/BankInfo").then((mod) => ({ default: mod.BankInfo })),
   { loading: () => <SectionSkeleton />, ssr: true }
+);
+
+const Timeline = dynamic(
+  () => import("./components/Timeline").then((mod) => ({ default: mod.Timeline })),
+  { ssr: true }
 );
 
 // Loading skeleton
@@ -95,46 +102,65 @@ export default function WeddingInvitation() {
       {/* Main Content */}
       {isEnvelopeOpen && (
         <div className="animate-fadeIn">
-          <HeroSection />
+          <Navigation />
+
+          <section id="home">
+            <HeroSection />
+          </section>
+
+          <section id="countdown">
+            <Suspense fallback={<SectionSkeleton />}>
+              <CountdownTimer />
+            </Suspense>
+          </section>
 
           <Suspense fallback={<SectionSkeleton />}>
-            <CountdownTimer />
+            <Timeline />
           </Suspense>
 
-          <Suspense fallback={<SectionSkeleton />}>
-            <EventInfo />
-          </Suspense>
+          <section id="events">
+            <Suspense fallback={<SectionSkeleton />}>
+              <EventInfo />
+            </Suspense>
+          </section>
 
-          <Suspense fallback={<SectionSkeleton />}>
-            <LoveStory />
-          </Suspense>
+          <section id="story">
+            <Suspense fallback={<SectionSkeleton />}>
+              <LoveStory />
+            </Suspense>
+          </section>
 
           <Suspense fallback={<SectionSkeleton />}>
             <GoogleMaps />
           </Suspense>
 
-          <Suspense fallback={<SectionSkeleton />}>
-            <PhotoGallery />
-          </Suspense>
+          <section id="gallery">
+            <Suspense fallback={<SectionSkeleton />}>
+              <PhotoGallery />
+            </Suspense>
+          </section>
 
-          <Suspense fallback={<SectionSkeleton />}>
-            <RSVPForm />
-          </Suspense>
+          <section id="rsvp">
+            <Suspense fallback={<SectionSkeleton />}>
+              <RSVPForm />
+            </Suspense>
+          </section>
 
           <Suspense fallback={<SectionSkeleton />}>
             <DressCode />
           </Suspense>
 
-          <Suspense fallback={<SectionSkeleton />}>
-            <BankInfo />
-          </Suspense>
+          <section id="gift">
+            <Suspense fallback={<SectionSkeleton />}>
+              <BankInfo />
+            </Suspense>
+          </section>
 
           <Suspense fallback={<SectionSkeleton />}>
             <Guestbook />
           </Suspense>
 
           <Footer />
-          <MusicToggle />
         </div>
       )}
 

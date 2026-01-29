@@ -22,6 +22,35 @@
         },
         "coverImage": "/couple-photo.png"
     },
+    "family": {
+        "groom": {
+            "title": "Nhà Trai",
+            "father": "Ông Nguyễn Xuân Dũng",
+            "mother": "Bà Nguyễn Hoa Phong Lan"
+        },
+        "bride": {
+            "title": "Nhà Gái",
+            "father": "Ông Đặng Văn Chiến",
+            "mother": "Bà Lã Thị Thanh"
+        }
+    },
+    "timeline": [
+        {
+            "time": "18:00",
+            "title": "Đón khách",
+            "icon": "camera"
+        },
+        {
+            "time": "18:30",
+            "title": "Lễ Thành Hôn",
+            "icon": "ring"
+        },
+        {
+            "time": "19:00",
+            "title": "Khai tiệc",
+            "icon": "cheers"
+        }
+    ],
     "quotes": [
         {
             "content": "Tình yêu không nhìn bằng mắt mà bằng trái tim.",

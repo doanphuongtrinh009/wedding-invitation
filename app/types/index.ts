@@ -27,6 +27,25 @@ export interface WeddingConfig {
     dressCode?: DressCodeConfig;
     bankInfo?: BankAccount[];
     quotes?: Quote[];
+    family?: {
+        groom: {
+            title: string;
+            father: string;
+            mother: string;
+        };
+        bride: {
+            title: string;
+            father: string;
+            mother: string;
+        };
+    };
+    timeline?: TimelineItem[];
+}
+
+export interface TimelineItem {
+    time: string;
+    title: string;
+    icon: string;
 }
 
 export interface Quote {

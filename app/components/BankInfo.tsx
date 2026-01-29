@@ -22,15 +22,9 @@ const BankCard = memo(function BankCard({ bank }: { bank: any }) {
             <h3 className="font-display text-xl text-[var(--color-primary)] mb-1">{bank.id === 'groom' ? 'Mừng Cưới Chú Rể' : 'Mừng Cưới Cô Dâu'}</h3>
             <p className="text-sm text-[var(--color-text)] opacity-60 uppercase tracking-widest mb-4">{bank.bankName}</p>
 
-            {/* QR Code Placeholder */}
-            <div className="relative w-40 h-40 bg-gray-100 rounded-lg mb-4 overflow-hidden border border-[var(--color-primary)]/10">
-                {/* Normally we would use bank.qrImage here */}
-                <div className="absolute inset-0 flex items-center justify-center text-[var(--color-text)] opacity-20 text-xs">
-                    MÃ QR
-                </div>
-                {/* Uncomment when real image is available
-                <Image src={bank.qrImage} alt="QR Code" fill style={{ objectFit: 'contain' }} /> 
-                */}
+            {/* QR Code */}
+            <div className="relative w-52 h-52 bg-white rounded-xl mb-4 overflow-hidden border-2 border-[var(--color-accent)]/30 shadow-md p-2">
+                <Image src={bank.qrImage} alt="QR Code" fill style={{ objectFit: 'contain' }} className="rounded-lg" />
             </div>
 
             <div className="w-full bg-[#f8f5f0] rounded-lg p-3 mb-4">

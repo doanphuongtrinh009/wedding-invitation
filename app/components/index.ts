@@ -9,3 +9,5 @@ export { RSVPForm } from "./RSVPForm";
 export { Guestbook } from "./Guestbook";
 export { MusicToggle } from "./MusicToggle";
 export { Footer } from "./Footer";
+export { FamilyInfo } from "./FamilyInfo";
+export { Timeline } from "./Timeline";

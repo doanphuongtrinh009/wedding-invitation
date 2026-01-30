@@ -3,6 +3,7 @@
 import { memo, useEffect, useRef } from "react";
 import Image from "next/image";
 import { COUPLE, CONFIG } from "@/app/lib/data";
+import { CountdownTimer } from "./CountdownTimer";
 
 function HeroSectionComponent() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -125,35 +126,17 @@ function HeroSectionComponent() {
                 {/* Date */}
                 <div className="reveal mb-4" style={{ animationDelay: "0.3s" }}>
                     <p className="font-display text-2xl md:text-3xl text-[var(--color-primary)] tracking-[0.15em]">
-                        10 | 04 | 2026
+                        {new Date(CONFIG.weddingDate).toLocaleDateString('vi-VN')}
                     </p>
                 </div>
 
                 {/* Location */}
                 <div className="reveal mb-6" style={{ animationDelay: "0.4s" }}>
                     <p className="text-[var(--color-text)] opacity-60 text-sm md:text-base tracking-[0.2em] uppercase">
-                        TP. Hồ Chí Minh, Việt Nam
+                        {CONFIG.events[0]?.location || 'TP. Hồ Chí Minh, Việt Nam'}
                     </p>
                 </div>
 
-                {/* Countdown inline */}
-                <div className="reveal flex items-center gap-4 text-[#2D3E33]/50 text-sm" style={{ animationDelay: "0.5s" }}>
-                    <span className="tabular-nums">436 Ngày</span>
-                    <span>•</span>
-                    <span className="tabular-nums">10 Giờ</span>
-                    <span>•</span>
-                    <span className="tabular-nums">25 Phút</span>
-                </div>
-            </div>
-
-            {/* Scroll Indicator */}
-            <div className="reveal absolute bottom-8 left-1/2 -translate-x-1/2 z-10" style={{ animationDelay: "0.6s" }}>
-                <div className="flex flex-col items-center gap-2 text-[#2D3E33]/30">
-                    <div className="w-6 h-10 border-2 border-current rounded-full flex justify-center pt-2">
-                        <div className="w-1 h-2 bg-current rounded-full animate-bounce"></div>
-                    </div>
-                    <span className="text-[10px] tracking-[0.3em] uppercase">Cuộn Xuống</span>
-                </div>
             </div>
         </section>
     );

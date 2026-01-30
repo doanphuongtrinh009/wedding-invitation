@@ -5,7 +5,11 @@ import Image from "next/image";
 import { TimeLeft } from "@/app/types";
 import { WEDDING_DATE, COUPLE, QUOTES } from "@/app/lib/data";
 
-function CountdownTimerComponent() {
+interface CountdownTimerProps {
+    targetDate?: string;
+}
+
+function CountdownTimerComponent({ targetDate }: CountdownTimerProps) {
     const [timeLeft, setTimeLeft] = useState<TimeLeft>({
         days: 0,
         hours: 0,
@@ -13,9 +17,10 @@ function CountdownTimerComponent() {
         seconds: 0,
     });
     const sectionRef = useRef<HTMLElement>(null);
+    const finalDate = targetDate || WEDDING_DATE;
 
     const calculateTimeLeft = useCallback(() => {
-        const weddingDate = new Date(WEDDING_DATE).getTime();
+        const weddingDate = new Date(finalDate).getTime();
         const now = new Date().getTime();
         const difference = weddingDate - now;
 
@@ -28,7 +33,7 @@ function CountdownTimerComponent() {
             };
         }
         return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    }, []);
+    }, [finalDate]);
 
     useEffect(() => {
         setTimeLeft(calculateTimeLeft());
@@ -124,7 +129,7 @@ function CountdownTimerComponent() {
                     <div className="inline-flex items-center gap-4 bg-white/60 backdrop-blur-sm px-8 py-4 rounded-full border border-[var(--color-accent)]/30">
                         <div className="text-[var(--color-primary)] opacity-50 text-sm">📅</div>
                         <p className="font-display text-xl md:text-2xl text-[var(--color-primary)] tracking-wide">
-                            Thứ Sáu, 10 Tháng 04, 2026
+                            {new Date(finalDate).toLocaleDateString('vi-VN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                         </p>
                     </div>
                 </div>

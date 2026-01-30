@@ -1,0 +1,80 @@
+
+# Project Rules & Coding Standards
+
+## 1. Technology Stack
+- **Framework**: Next.js 16.x (App Router)
+- **Library**: React 19.x
+- **Styling**: Tailwind CSS v4
+- **Language**: TypeScript (Strict Mode)
+- **Icons**: Lucide React
+- **Package Manager**: npm
+
+## 2. General Code Style
+- **Indentation**: 2 spaces.
+- **Quotes**: Double quotes for JSX attributes, single quotes for JS/TS strings (or consistent with Prettier).
+- **Semicolons**: Always use semicolons.
+- **Trailing Commas**: ES5 compatible (objects, arrays, functions).
+
+## 3. Naming Conventions
+- **Components Settings files**: `PascalCase` (e.g., `HeroSection.tsx`, `ThemeContext.tsx`).
+- **Utility/Hook files**: `camelCase` (e.g., `useWindowSize.ts`, `formatDate.ts`).
+- **Next.js Routing files**: `kebab-case` folders / standard Next.js names (`page.tsx`, `layout.tsx`, `loading.tsx`).
+- **Variables/Functions**: `camelCase` (e.g., `isOpen`, `handleClick`).
+- **Constants**: `UPPER_SNAKE_CASE` (e.g., `MAX_GUESTS`).
+- **Interfaces/Types**: `PascalCase` (e.g., `UserInterface`, `HeroProps`).
+  - Do NOT prefix with `I` (e.g., avoid `IUser`).
+
+## 4. TypeScript Best Practices
+- **Strict Typing**: No `any`. Use `unknown` if necessary and cast safely.
+- **Interfaces vs Types**: Prefer `interface` for object definitions and `type` for unions/primitives.
+- **Props**: Define props as an interface named `[ComponentName]Props`.
+  ```tsx
+  interface HeroSectionProps {
+    title: string;
+    isVisible?: boolean;
+  }
+  ```
+- **Event Handlers**: Type events explicitly when needed (e.g., `React.ChangeEvent<HTMLInputElement>`).
+- **Path Aliases**: Use `@/` for imports (e.g., `import X from '@/components/X'`).
+
+## 5. React & Next.js Best Practices
+- **App Router**:
+  - Use **Server Components** by default.
+  - Add `"use client"` only for interaction (hooks, event listeners) or browser-only APIs.
+- **Functional Components**: Use `function` or `const` arrow functions.
+  ```tsx
+  // Preferred
+  export default function HeroSection({ title }: HeroSectionProps) { ... }
+  ```
+- **Hooks**: Place hooks at the top level. Custom hooks must start with `use`.
+- **Dependencies**: Ensure `useEffect` dependency arrays are exhaustive.
+- **Images**: Always use `next/image` with defined width/height or `fill`.
+
+## 6. Tailwind CSS Standards
+- **Utility First**: Use utility classes over custom CSS files.
+- **Ordering**: Follow a logical order (Layout -> Box Model -> Typography -> Visual -> Misc) or use `prettier-plugin-tailwindcss`.
+- **Responsive**: Mobile-first approach. (e.g., `w-full md:w-1/2`).
+- **Dark Mode**: Use `dark:` modifier if dark mode is enabled.
+- **Global Styles**: Put global resets/fonts in `globals.css` but avoid component-specific styles there.
+
+## 7. Component Structure
+- **File Organization**:
+  ```
+  app/
+    components/      # Shared components
+      HeroSection.tsx
+    (pages)/         # Route groups
+    page.tsx         # Route page
+  ```
+- **Exports**: Use named exports or default exports consistently (default preferred for Pages/Components).
+- **Hardcoding**: move magic strings/configs to `config.json` or constants files if reused.
+
+## 8. State Management
+- **URL State**: specific filter/search state should be in URL (`searchParams`) to be shareable.
+- **Server State**: mutations should use Server Actions where appropriate.
+- **Client State**: `useState` / `useReducer` for UI toggles.
+
+## 9. Accessibility (a11y)
+- **Semantic HTML**: Use `<main>`, `<section>`, `<header>`, `<footer>`, `<button>` appropriately.
+- **Images**: All `<img>` / `<Image>` tags must have descriptive `alt` text.
+- **Interactive**: Ensure buttons have `aria-label` if they contain only icons.

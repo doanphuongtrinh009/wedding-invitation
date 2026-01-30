@@ -1,7 +1,8 @@
 "use client";
 
 import { memo, useEffect, useRef } from "react";
-import { COUPLE } from "@/app/lib/data";
+import Link from "next/link";
+import { COUPLE, CONFIG } from "@/app/lib/data";
 
 function FooterComponent() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -54,9 +55,19 @@ function FooterComponent() {
                 </div>
 
                 {/* Copyright */}
-                <p className="reveal text-[var(--color-text)] opacity-40 text-xs tracking-wider">
-                    Thực hiện bởi ♥ | 10.04.2026
+                <p className="reveal text-[var(--color-text)] opacity-40 text-xs tracking-wider mb-4">
+                    Thực hiện bởi ♥ | {new Date(CONFIG.weddingDate).toLocaleDateString('vi-VN')}
                 </p>
+
+                <div className="reveal">
+                    <Link
+                        href="/tool/generator"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)]/5 hover:bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-medium transition-colors"
+                    >
+                        <span>✨</span>
+                        Tạo thiệp cưới của bạn
+                    </Link>
+                </div>
             </div>
         </footer>
     );

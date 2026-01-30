@@ -12,6 +12,15 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Missing contact info' }, { status: 400 });
         }
 
+        // Check for environment variables
+        if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+            console.error('Missing env vars:', {
+                user: !!process.env.GMAIL_USER,
+                pass: !!process.env.GMAIL_PASS
+            });
+            return NextResponse.json({ error: 'Server misconfigured (missing credentials)' }, { status: 500 });
+        }
+
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {

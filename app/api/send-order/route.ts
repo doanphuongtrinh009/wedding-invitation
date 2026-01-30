@@ -13,10 +13,15 @@ export async function POST(request: Request) {
         }
 
         // Check for environment variables
-        if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+        const user = process.env.NEXT_PUBLIC_GMAIL_USER || process.env.GMAIL_USER;
+        const pass = process.env.NEXT_PUBLIC_GMAIL_PASS || process.env.GMAIL_PASS;
+
+        if (!user || !pass) {
             console.error('Missing env vars:', {
-                user: !!process.env.GMAIL_USER,
-                pass: !!process.env.GMAIL_PASS
+                user: !!user,
+                pass: !!pass,
+                env_user_exists: !!process.env.NEXT_PUBLIC_GMAIL_USER,
+                env_pass_exists: !!process.env.NEXT_PUBLIC_GMAIL_PASS
             });
             return NextResponse.json({ error: 'Server misconfigured (missing credentials)' }, { status: 500 });
         }
@@ -24,8 +29,8 @@ export async function POST(request: Request) {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_PASS,
+                user: user,
+                pass: pass,
             },
         });
 

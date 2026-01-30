@@ -21,8 +21,8 @@ const nextConfig: NextConfig = {
   compress: true,
   // Expose env vars to the browser (if needed) and server
   env: {
-    GMAIL_USER: process.env.GMAIL_USER,
-    GMAIL_PASS: process.env.GMAIL_PASS,
+    GMAIL_USER: process.env.NEXT_PUBLIC_GMAIL_USER,
+    GMAIL_PASS: process.env.NEXT_PUBLIC_GMAIL_PASS,
   },
 };
 

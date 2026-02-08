@@ -17,9 +17,7 @@ const navItems = [
 function NavigationComponent() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("home");
-    const [isScrolled, setIsScrolled] = useState(false);
 
-    // Music state
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -57,11 +55,8 @@ function NavigationComponent() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-
-            // Detect active section
-            const sections = navItems.map(item => document.getElementById(item.id));
-            const scrollPosition = window.scrollY + 150;
+            const sections = navItems.map((item) => document.getElementById(item.id));
+            const scrollPosition = window.scrollY + 160;
 
             sections.forEach((section, index) => {
                 if (section) {
@@ -88,105 +83,99 @@ function NavigationComponent() {
 
     return (
         <>
-            {/* Desktop Navigation */}
-            <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/95 backdrop-blur-md shadow-md py-2">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="flex items-center justify-between">
-                        {/* Logo */}
+            <nav className="fixed left-0 right-0 top-0 z-50 px-4 py-4 md:px-8">
+                <div className="mx-auto flex max-w-6xl items-center justify-between rounded-full bg-[var(--surface)] px-4 py-2 shadow-[var(--shadow-soft)] backdrop-blur-xl md:px-6 md:py-3">
+                    <button
+                        onClick={() => scrollToSection("home")}
+                        className="font-display text-2xl tracking-[0.08em] text-[var(--color-primary)] transition-opacity hover:opacity-80"
+                    >
+                        T&amp;T
+                    </button>
+
+                    <div className="hidden items-center gap-1 md:flex">
+                        {navItems.map((item) => (
+                            <button
+                                key={item.id}
+                                onClick={() => scrollToSection(item.id)}
+                                className={`whitespace-nowrap rounded-full px-3 py-2 text-[12px] font-medium tracking-[0.02em] transition-all duration-300 ${activeSection === item.id
+                                    ? "bg-[var(--color-primary)] text-white shadow-[0_10px_18px_rgba(31,43,36,0.25)]"
+                                    : "text-[var(--color-text)]/80 hover:bg-white/70 hover:text-[var(--color-primary)]"
+                                    }`}
+                            >
+                                {item.label}
+                            </button>
+                        ))}
+
                         <button
-                            onClick={() => scrollToSection("home")}
-                            className="font-display text-xl text-[var(--color-primary)] hover:opacity-80 transition-opacity"
+                            onClick={toggleMusic}
+                            disabled={!isLoaded}
+                            className="ml-2 rounded-full bg-white/80 p-2 text-[var(--color-primary)] shadow-[0_6px_14px_rgba(31,43,36,0.1)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white disabled:opacity-50"
+                            title={isPlaying ? "Tắt nhạc" : "Bật nhạc"}
+                            aria-label={isPlaying ? "Tắt nhạc nền" : "Bật nhạc nền"}
                         >
-                            P & T
+                            <span className={`text-lg ${isPlaying ? "animate-spin-slow" : ""}`}>
+                                {isPlaying ? "💿" : "🎵"}
+                            </span>
+                        </button>
+                    </div>
+
+                    <div className="flex items-center gap-2 md:hidden">
+                        <button
+                            onClick={toggleMusic}
+                            disabled={!isLoaded}
+                            className="rounded-full bg-white/80 p-2 text-[var(--color-primary)] shadow-[0_6px_14px_rgba(31,43,36,0.1)] transition-colors hover:bg-white disabled:opacity-50"
+                            title={isPlaying ? "Tắt nhạc" : "Bật nhạc"}
+                            aria-label={isPlaying ? "Tắt nhạc nền" : "Bật nhạc nền"}
+                        >
+                            <span className={`text-lg ${isPlaying ? "animate-spin-slow" : ""}`}>
+                                {isPlaying ? "💿" : "🎵"}
+                            </span>
                         </button>
 
-                        {/* Desktop Menu */}
-                        <div className="hidden md:flex items-center gap-1">
-                            {navItems.map((item) => (
-                                <button
-                                    key={item.id}
-                                    onClick={() => scrollToSection(item.id)}
-                                    className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeSection === item.id
-                                        ? "bg-[var(--color-primary)] text-white shadow-md"
-                                        : "text-[var(--color-text)] hover:bg-[var(--color-primary)]/10"
-                                        }`}
-                                >
-                                    <span className="mr-1">{item.icon}</span>
-                                    {item.label}
-                                </button>
-                            ))}
-
-                            {/* Music Toggle */}
-                            <button
-                                onClick={toggleMusic}
-                                disabled={!isLoaded}
-                                className="ml-2 p-2 rounded-full text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-all duration-300 disabled:opacity-50"
-                                title={isPlaying ? "Tắt nhạc" : "Bật nhạc"}
-                                aria-label={isPlaying ? "Tắt nhạc nền" : "Bật nhạc nền"}
-                            >
-                                <span className={`text-xl ${isPlaying ? "animate-spin-slow" : ""}`}>
-                                    {isPlaying ? "💿" : "🎵"}
-                                </span>
-                            </button>
-                        </div>
-
-                        {/* Mobile: Music + Menu Button */}
-                        <div className="md:hidden flex items-center gap-1">
-                            <button
-                                onClick={toggleMusic}
-                                disabled={!isLoaded}
-                                className="p-2 rounded-full text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-all duration-300 disabled:opacity-50"
-                                title={isPlaying ? "Tắt nhạc" : "Bật nhạc"}
-                            >
-                                <span className={`text-xl ${isPlaying ? "animate-spin-slow" : ""}`}>
-                                    {isPlaying ? "💿" : "🎵"}
-                                </span>
-                            </button>
-                            <button
-                                onClick={() => setIsOpen(!isOpen)}
-                                className="p-2 rounded-full text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-colors"
-                            >
-                                {isOpen ? <X size={24} /> : <Menu size={24} />}
-                            </button>
-                        </div>
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="rounded-full bg-white/80 p-2 text-[var(--color-primary)] shadow-[0_6px_14px_rgba(31,43,36,0.1)] transition-colors hover:bg-white"
+                            aria-label="Mở menu"
+                        >
+                            {isOpen ? <X size={22} /> : <Menu size={22} />}
+                        </button>
                     </div>
                 </div>
             </nav>
 
-            {/* Mobile Menu Overlay */}
-            <div className={`fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-                }`} onClick={() => setIsOpen(false)} />
+            <div
+                className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
+                onClick={() => setIsOpen(false)}
+            />
 
-            {/* Mobile Menu Panel */}
-            <div className={`fixed top-0 right-0 h-full w-72 z-50 bg-white shadow-2xl transform transition-transform duration-300 ease-out md:hidden ${isOpen ? "translate-x-0" : "translate-x-full"
-                }`}>
-                <div className="p-6">
-                    <div className="flex items-center justify-between mb-8">
-                        <span className="font-display text-2xl text-[var(--color-primary)]">Menu</span>
+            <div
+                className={`fixed right-0 top-0 z-50 h-full w-72 bg-[var(--surface-strong)] p-6 shadow-[var(--shadow-lift)] backdrop-blur-xl transition-transform duration-300 ease-out md:hidden ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+            >
+                <div className="mb-8 flex items-center justify-between">
+                    <span className="font-display text-3xl text-[var(--color-primary)]">Menu</span>
+                    <button
+                        onClick={() => setIsOpen(false)}
+                        className="rounded-full bg-white/80 p-2 text-[var(--color-text)] shadow-[0_6px_14px_rgba(31,43,36,0.1)]"
+                        aria-label="Đóng menu"
+                    >
+                        <X size={20} />
+                    </button>
+                </div>
+
+                <div className="space-y-2">
+                    {navItems.map((item) => (
                         <button
-                            onClick={() => setIsOpen(false)}
-                            className="p-2 rounded-full hover:bg-gray-100 text-[var(--color-text)]"
+                            key={item.id}
+                            onClick={() => scrollToSection(item.id)}
+                            className={`flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-semibold tracking-[0.02em] transition-all duration-300 ${activeSection === item.id
+                                ? "bg-[var(--color-primary)] text-white"
+                                : "text-[var(--color-text)]/80 hover:bg-white"
+                                }`}
                         >
-                            <X size={24} />
+                            <span className="text-lg">{item.icon}</span>
+                            <span>{item.label}</span>
                         </button>
-                    </div>
-
-                    <div className="space-y-2">
-                        {navItems.map((item, index) => (
-                            <button
-                                key={item.id}
-                                onClick={() => scrollToSection(item.id)}
-                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 ${activeSection === item.id
-                                    ? "bg-[var(--color-primary)] text-white"
-                                    : "text-[var(--color-text)] hover:bg-[var(--color-primary)]/10"
-                                    }`}
-                                style={{ animationDelay: `${index * 50}ms` }}
-                            >
-                                <span className="text-xl">{item.icon}</span>
-                                <span className="font-medium">{item.label}</span>
-                            </button>
-                        ))}
-                    </div>
+                    ))}
                 </div>
             </div>
         </>

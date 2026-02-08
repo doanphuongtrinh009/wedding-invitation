@@ -3,10 +3,11 @@
 
 import { AppConfig, LoveStoryEvent } from "@/app/types/config";
 import { Plus, Trash2 } from "lucide-react";
+import type { UpdateConfig } from "./types";
 
 interface LoveStoryFormProps {
     config: AppConfig;
-    updateConfig: (key: keyof AppConfig, value: any) => void;
+    updateConfig: UpdateConfig;
 }
 
 export default function LoveStoryForm({ config, updateConfig }: LoveStoryFormProps) {

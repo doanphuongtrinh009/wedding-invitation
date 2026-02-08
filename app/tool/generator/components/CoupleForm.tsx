@@ -2,10 +2,11 @@
 "use client";
 
 import { AppConfig } from "@/app/types/config";
+import type { UpdateConfig } from "./types";
 
 interface CoupleFormProps {
     config: AppConfig;
-    updateConfig: (key: keyof AppConfig, value: any) => void;
+    updateConfig: UpdateConfig;
 }
 
 export default function CoupleForm({ config, updateConfig }: CoupleFormProps) {

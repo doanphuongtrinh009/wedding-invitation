@@ -3,7 +3,6 @@
 import { memo, useEffect, useRef } from "react";
 import Image from "next/image";
 import { COUPLE, CONFIG } from "@/app/lib/data";
-import { CountdownTimer } from "./CountdownTimer";
 
 function HeroSectionComponent() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -27,88 +26,44 @@ function HeroSectionComponent() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center px-4 py-16 overflow-hidden bg-white">
-
-            {/* Bold Floral Background Decorations */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {/* Top Left Corner */}
-                <div className="absolute -top-16 -left-16 w-[300px] h-[300px] md:w-[500px] md:h-[500px]">
-                    <Image
-                        src="/floral-new.png"
-                        alt=""
-                        fill
-                        style={{ objectFit: 'contain' }}
-                    />
+        <section ref={sectionRef} className="relative flex min-h-screen items-center overflow-hidden px-4 pb-20 pt-36 md:pt-40">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                <div className="absolute -left-16 -top-16 h-[304px] w-[304px] opacity-55 md:h-[480px] md:w-[480px]">
+                    <Image src="/floral-new.png" alt="" fill style={{ objectFit: "contain" }} />
                 </div>
-
-                {/* Top Right Corner */}
-                <div className="absolute -top-16 -right-16 w-[300px] h-[300px] md:w-[500px] md:h-[500px]">
-                    <Image
-                        src="/floral-new.png"
-                        alt=""
-                        fill
-                        style={{ objectFit: 'contain', transform: 'scaleX(-1)' }}
-                    />
+                <div className="absolute -right-16 -top-16 h-[304px] w-[304px] opacity-55 md:h-[480px] md:w-[480px]">
+                    <Image src="/floral-new.png" alt="" fill style={{ objectFit: "contain", transform: "scaleX(-1)" }} />
                 </div>
-
-                {/* Bottom Left Corner */}
-                <div className="absolute -bottom-16 -left-16 w-[280px] h-[280px] md:w-[450px] md:h-[450px]">
-                    <Image
-                        src="/floral-new.png"
-                        alt=""
-                        fill
-                        style={{ objectFit: 'contain', transform: 'rotate(180deg) scaleX(-1)' }}
-                    />
+                <div className="absolute -bottom-16 -left-16 h-[288px] w-[288px] opacity-45 md:h-[432px] md:w-[432px]">
+                    <Image src="/floral-new.png" alt="" fill style={{ objectFit: "contain", transform: "rotate(180deg) scaleX(-1)" }} />
                 </div>
-
-                {/* Bottom Right Corner */}
-                <div className="absolute -bottom-16 -right-16 w-[280px] h-[280px] md:w-[450px] md:h-[450px]">
-                    <Image
-                        src="/floral-new.png"
-                        alt=""
-                        fill
-                        style={{ objectFit: 'contain', transform: 'rotate(180deg)' }}
-                    />
+                <div className="absolute -bottom-16 -right-16 h-[288px] w-[288px] opacity-45 md:h-[432px] md:w-[432px]">
+                    <Image src="/floral-new.png" alt="" fill style={{ objectFit: "contain", transform: "rotate(180deg)" }} />
                 </div>
             </div>
 
-
-            <div className="relative z-10 text-center max-w-3xl mx-auto flex flex-col items-center">
-
-                {/* Couple Photo with Gold Frame */}
-                <div className="reveal mb-10 relative">
-                    <div className="p-2 md:p-3" style={{ background: 'linear-gradient(135deg, var(--color-accent) 0%, #d4b896 50%, var(--color-accent) 100%)' }}>
-                        <div className="relative w-[280px] h-[200px] md:w-[400px] md:h-[280px] overflow-hidden">
-                            <Image
-                                src="/couple-photo.png"
-                                alt="Ảnh cưới"
-                                fill
-                                style={{ objectFit: 'cover' }}
-                            />
+            <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center rounded-[32px] border border-[var(--border-soft)] bg-[var(--surface)] px-6 py-10 text-center shadow-[var(--shadow-medium)] backdrop-blur-xl md:px-10 md:py-14">
+                <div className="reveal mb-8 md:mb-10">
+                    <div className="rounded-[24px] p-2 md:p-3" style={{ background: "linear-gradient(135deg, var(--color-accent) 0%, #d8bea0 50%, var(--color-accent) 100%)" }}>
+                        <div className="relative h-[208px] w-[296px] overflow-hidden rounded-[20px] md:h-[296px] md:w-[432px]">
+                            <Image src="/couple-photo.png" alt="Ảnh cưới" fill style={{ objectFit: "cover" }} />
                         </div>
                     </div>
                 </div>
 
-                {/* Family Info */}
-                <div className="reveal mb-8 w-full px-4" style={{ animationDelay: "0.1s" }}>
-                    <div className="grid grid-cols-2 gap-8 md:gap-16 max-w-2xl mx-auto">
-                        {/* Nhà Trai */}
-                        <div className="text-center">
-                            <h3 className="font-display text-lg md:text-xl text-[var(--color-primary)] mb-2 font-bold">
-                                {CONFIG.family?.groom.title}
-                            </h3>
-                            <div className="space-y-1 font-display text-sm md:text-base text-[var(--color-text)]">
+                <div className="reveal mb-8 w-full max-w-3xl">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+                        <div className="rounded-2xl border border-[var(--border-soft)] bg-white/60 p-4 md:p-6">
+                            <h3 className="font-display text-2xl text-[var(--color-primary)]">{CONFIG.family?.groom.title}</h3>
+                            <div className="mt-3 space-y-1 font-display text-base text-[var(--color-text)]/80 md:text-lg">
                                 <p className="italic">{CONFIG.family?.groom.father}</p>
                                 <p className="italic">{CONFIG.family?.groom.mother}</p>
                             </div>
                         </div>
 
-                        {/* Nhà Gái */}
-                        <div className="text-center">
-                            <h3 className="font-display text-lg md:text-xl text-[var(--color-primary)] mb-2 font-bold">
-                                {CONFIG.family?.bride.title}
-                            </h3>
-                            <div className="space-y-1 font-display text-sm md:text-base text-[var(--color-text)]">
+                        <div className="rounded-2xl border border-[var(--border-soft)] bg-white/60 p-4 md:p-6">
+                            <h3 className="font-display text-2xl text-[var(--color-primary)]">{CONFIG.family?.bride.title}</h3>
+                            <div className="mt-3 space-y-1 font-display text-base text-[var(--color-text)]/80 md:text-lg">
                                 <p className="italic">{CONFIG.family?.bride.father}</p>
                                 <p className="italic">{CONFIG.family?.bride.mother}</p>
                             </div>
@@ -116,27 +71,23 @@ function HeroSectionComponent() {
                     </div>
                 </div>
 
-                {/* Names - Script Style - Allow wrapping on very small screens */}
-                <div className="reveal mb-6 px-4" style={{ animationDelay: "0.2s" }}>
-                    <h1 className="font-display text-2xl sm:text-3xl md:text-5xl text-[var(--color-primary)] italic leading-tight">
-                        {COUPLE.groom.shortName} <span className="text-[var(--color-accent)]">&</span> {COUPLE.bride.shortName}
+                <div className="reveal mb-6 px-4">
+                    <h1 className="font-display text-4xl italic leading-tight text-[var(--color-primary)] md:text-6xl">
+                        {COUPLE.groom.shortName} <span className="text-[var(--color-accent)]">&amp;</span> {COUPLE.bride.shortName}
                     </h1>
                 </div>
 
-                {/* Date */}
-                <div className="reveal mb-4" style={{ animationDelay: "0.3s" }}>
-                    <p className="font-display text-2xl md:text-3xl text-[var(--color-primary)] tracking-[0.15em]">
-                        {new Date(CONFIG.weddingDate).toLocaleDateString('vi-VN')}
+                <div className="reveal mb-4">
+                    <p className="font-display text-2xl tracking-[0.12em] text-[var(--color-primary)] md:text-3xl">
+                        {new Date(CONFIG.weddingDate).toLocaleDateString("vi-VN")}
                     </p>
                 </div>
 
-                {/* Location */}
-                <div className="reveal mb-6" style={{ animationDelay: "0.4s" }}>
-                    <p className="text-[var(--color-text)] opacity-60 text-sm md:text-base tracking-[0.2em] uppercase">
-                        {CONFIG.events[0]?.location || 'TP. Hồ Chí Minh, Việt Nam'}
+                <div className="reveal">
+                    <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-text)]/70 md:text-base">
+                        {CONFIG.events[0]?.location || "TP. Hồ Chí Minh, Việt Nam"}
                     </p>
                 </div>
-
             </div>
         </section>
     );

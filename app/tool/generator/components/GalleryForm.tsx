@@ -3,10 +3,11 @@
 
 import { AppConfig, GalleryImage } from "@/app/types/config";
 import { Plus, Trash2 } from "lucide-react";
+import type { UpdateConfig } from "./types";
 
 interface GalleryFormProps {
     config: AppConfig;
-    updateConfig: (key: keyof AppConfig, value: any) => void;
+    updateConfig: UpdateConfig;
 }
 
 export default function GalleryForm({ config, updateConfig }: GalleryFormProps) {

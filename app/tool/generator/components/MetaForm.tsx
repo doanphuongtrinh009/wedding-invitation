@@ -1,11 +1,12 @@
 
 "use client";
 
-import { AppConfig, MetaConfig } from "@/app/types/config";
+import { AppConfig } from "@/app/types/config";
+import type { UpdateConfig } from "./types";
 
 interface MetaFormProps {
     config: AppConfig;
-    updateConfig: (key: keyof AppConfig, value: any) => void;
+    updateConfig: UpdateConfig;
 }
 
 export default function MetaForm({ config, updateConfig }: MetaFormProps) {

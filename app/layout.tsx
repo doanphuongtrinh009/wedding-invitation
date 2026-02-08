@@ -21,6 +21,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: CONFIG.meta.title,
   description: CONFIG.meta.description,
+  metadataBase: new URL("http://localhost:3000"),
   keywords: CONFIG.meta.seoKeywords.split(",").map(k => k.trim()),
   authors: [{ name: "Wedding Invitation" }],
   openGraph: {
@@ -43,7 +44,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content={CONFIG.meta.themeColor} />
       </head>
-      <body className="font-body antialiased bg-[#FDFBF7]">
+      <body className="font-body antialiased text-[var(--foreground)]">
         <ThemeProvider>
           {children}
         </ThemeProvider>

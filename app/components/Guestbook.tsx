@@ -6,24 +6,18 @@ import { INITIAL_MESSAGES } from "@/app/lib/data";
 
 const MessageCard = memo(function MessageCard({ msg }: { msg: GuestMessage }) {
     return (
-        <div className="card-elegant p-5 hover:shadow-lg transition-shadow">
+        <div className="card-elegant rounded-2xl p-5 transition-all duration-300 hover:shadow-[var(--shadow-medium)]">
             <div className="flex items-start gap-4">
-                {/* Avatar */}
-                <div className="w-11 h-11 bg-[#2D3E33] rounded-full flex items-center justify-center text-white font-display text-lg flex-shrink-0">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-xl text-white">
                     {msg.name.charAt(0).toUpperCase()}
                 </div>
 
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-medium text-[#2D3E33] truncate">{msg.name}</h4>
-                        <span className="text-xs text-[#2D3E33]/40 flex-shrink-0 ml-2">
-                            {new Date(msg.timestamp).toLocaleDateString("vi-VN")}
-                        </span>
+                <div className="min-w-0 flex-1">
+                    <div className="mb-2 flex items-center justify-between gap-3">
+                        <h4 className="truncate font-semibold text-[var(--color-primary)]">{msg.name}</h4>
+                        <span className="text-xs text-[var(--color-text)]/45">{new Date(msg.timestamp).toLocaleDateString("vi-VN")}</span>
                     </div>
-                    <p className="text-[#2D3E33]/70 text-sm leading-relaxed break-words">
-                        {msg.message}
-                    </p>
+                    <p className="text-sm leading-relaxed text-[var(--color-text)]/75">{msg.message}</p>
                 </div>
             </div>
         </div>
@@ -72,27 +66,19 @@ function GuestbookComponent() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="py-20 md:py-28 paper-texture relative">
-            {/* Floating Decoration */}
-            <div className="absolute right-5 top-10 text-5xl opacity-15 animate-float">💐</div>
+        <section ref={sectionRef} className="relative py-24 md:py-28">
+            <div className="pointer-events-none absolute right-6 top-12 text-5xl opacity-10 animate-float">💐</div>
 
-            <div className="max-w-2xl mx-auto px-4">
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <div className="reveal mb-4">
-                        <span className="text-4xl">📖</span>
-                    </div>
-                    <h2 className="reveal font-display text-3xl md:text-4xl text-[#2D3E33] mb-3">
-                        Sổ Lưu Bút
-                    </h2>
-                    <p className="reveal text-[#2D3E33]/60 text-sm tracking-wider">
-                        Gửi lời chúc đến cô dâu chú rể
-                    </p>
+            <div className="mx-auto max-w-3xl px-4 md:px-6">
+                <div className="mb-12 text-center">
+                    <div className="reveal mb-4 text-4xl">📖</div>
+                    <p className="reveal section-heading mb-2">Guestbook</p>
+                    <h2 className="reveal section-title mb-3 text-4xl md:text-5xl">Sổ Lưu Bút</h2>
+                    <p className="reveal section-subtitle uppercase">Gửi lời chúc đến cô dâu chú rể</p>
                 </div>
 
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="reveal card-elegant p-6 mb-8">
-                    <div className="grid gap-4 mb-4">
+                <form onSubmit={handleSubmit} className="reveal card-elegant mb-8 rounded-[28px] p-6 md:p-8">
+                    <div className="mb-4 grid gap-4">
                         <input
                             type="text"
                             placeholder="Tên của bạn"
@@ -110,13 +96,11 @@ function GuestbookComponent() {
                             maxLength={500}
                         />
                     </div>
-                    <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2">
-                        <span>💌</span>
-                        <span>Gửi Lời Chúc</span>
+                    <button type="submit" className="btn-primary w-full">
+                        Gửi Lời Chúc
                     </button>
                 </form>
 
-                {/* Messages */}
                 <div className="reveal space-y-4">
                     {messages.map((msg) => (
                         <MessageCard key={msg.id} msg={msg} />

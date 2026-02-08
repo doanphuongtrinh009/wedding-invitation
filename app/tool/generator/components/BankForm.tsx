@@ -3,10 +3,11 @@
 
 import { AppConfig, BankAccount } from "@/app/types/config";
 import { Plus, Trash2 } from "lucide-react";
+import type { UpdateConfig } from "./types";
 
 interface BankFormProps {
     config: AppConfig;
-    updateConfig: (key: keyof AppConfig, value: any) => void;
+    updateConfig: UpdateConfig;
 }
 
 export default function BankForm({ config, updateConfig }: BankFormProps) {
@@ -94,7 +95,7 @@ export default function BankForm({ config, updateConfig }: BankFormProps) {
                             <label className="block text-xs font-semibold text-gray-500 mb-1">Template QR</label>
                             <select
                                 value={bank.template}
-                                onChange={(e) => handleChange(index, 'template', e.target.value as any)}
+                                onChange={(e) => handleChange(index, 'template', e.target.value as BankAccount["template"])}
                                 className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm"
                             >
                                 <option value="compact">Compact (Gọn)</option>

@@ -47,29 +47,20 @@ function RSVPFormComponent() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="py-20 md:py-28 paper-texture relative">
-            {/* Floating Decoration */}
-            <div className="absolute left-5 bottom-20 text-5xl opacity-15 animate-float">🌷</div>
+        <section ref={sectionRef} className="relative py-24 md:py-28">
+            <div className="pointer-events-none absolute bottom-16 left-4 text-5xl opacity-10 animate-float">🌷</div>
 
-            <div className="max-w-md mx-auto px-4">
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <div className="reveal mb-4">
-                        <span className="text-4xl">💌</span>
-                    </div>
-                    <h2 className="reveal font-display text-3xl md:text-4xl text-[#2D3E33] mb-3">
-                        Xác Nhận Tham Dự
-                    </h2>
-                    <p className="reveal text-[#2D3E33]/60 text-sm tracking-wider">
-                        Vui lòng xác nhận sự hiện diện của bạn
-                    </p>
+            <div className="mx-auto max-w-lg px-4 md:px-6">
+                <div className="mb-12 text-center">
+                    <div className="reveal mb-4 text-4xl">💌</div>
+                    <p className="reveal section-heading mb-2">RSVP</p>
+                    <h2 className="reveal section-title mb-3 text-4xl md:text-5xl">Xác Nhận Tham Dự</h2>
+                    <p className="reveal section-subtitle uppercase">Vui lòng xác nhận sự hiện diện của bạn</p>
                 </div>
 
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="reveal card-elegant p-8">
-                    {/* Name */}
+                <form onSubmit={handleSubmit} className="reveal card-elegant rounded-[28px] p-6 md:p-8">
                     <div className="mb-6">
-                        <label htmlFor="rsvp-name" className="block text-[#2D3E33] text-sm font-medium mb-2">
+                        <label htmlFor="rsvp-name" className="mb-2 block text-sm font-medium text-[var(--color-text)]/85">
                             Họ và Tên <span className="text-red-400">*</span>
                         </label>
                         <input
@@ -83,14 +74,13 @@ function RSVPFormComponent() {
                         />
                     </div>
 
-                    {/* Attending */}
                     <div className="mb-6">
-                        <label htmlFor="rsvp-attending" className="block text-[#2D3E33] text-sm font-medium mb-2">
+                        <label htmlFor="rsvp-attending" className="mb-2 block text-sm font-medium text-[var(--color-text)]/85">
                             Bạn có tham dự được không?
                         </label>
                         <select
                             id="rsvp-attending"
-                            className="input-elegant appearance-none cursor-pointer"
+                            className="input-elegant cursor-pointer appearance-none"
                             value={formData.attending}
                             onChange={(e) => updateField("attending", e.target.value as RSVPFormData["attending"])}
                         >
@@ -100,27 +90,22 @@ function RSVPFormComponent() {
                         </select>
                     </div>
 
-                    {/* Guests */}
                     {formData.attending === "yes" && (
-                        <div className="mb-8">
-                            <label className="block text-[#2D3E33] text-sm font-medium mb-3">
-                                Số người đi cùng
-                            </label>
+                        <div className="mb-8 rounded-2xl border border-[var(--border-soft)] bg-white/60 p-4 md:p-6">
+                            <label className="mb-4 block text-sm font-medium text-[var(--color-text)]/85">Số người đi cùng</label>
                             <div className="flex items-center justify-center gap-6">
                                 <button
                                     type="button"
-                                    className="w-12 h-12 rounded-full border-2 border-[#2D3E33]/20 text-[#2D3E33] font-bold hover:bg-[#2D3E33]/10 transition-colors"
+                                    className="h-12 w-12 rounded-full border border-[var(--border-soft)] text-2xl text-[var(--color-primary)] transition-colors hover:bg-white"
                                     onClick={() => updateField("guests", Math.max(0, formData.guests - 1))}
                                     aria-label="Giảm"
                                 >
                                     −
                                 </button>
-                                <span className="font-display text-4xl text-[#2D3E33] w-16 text-center tabular-nums">
-                                    {formData.guests}
-                                </span>
+                                <span className="tabular-nums w-16 text-center font-display text-5xl text-[var(--color-primary)]">{formData.guests}</span>
                                 <button
                                     type="button"
-                                    className="w-12 h-12 rounded-full border-2 border-[#2D3E33]/20 text-[#2D3E33] font-bold hover:bg-[#2D3E33]/10 transition-colors"
+                                    className="h-12 w-12 rounded-full border border-[var(--border-soft)] text-2xl text-[var(--color-primary)] transition-colors hover:bg-white"
                                     onClick={() => updateField("guests", Math.min(10, formData.guests + 1))}
                                     aria-label="Tăng"
                                 >
@@ -130,16 +115,12 @@ function RSVPFormComponent() {
                         </div>
                     )}
 
-                    {/* Submit */}
                     <button
                         type="submit"
                         disabled={submitted}
-                        className={`w-full py-4 rounded-full font-medium transition-all duration-300 ${submitted
-                                ? "bg-green-600 text-white"
-                                : "btn-primary"
-                            }`}
+                        className={`w-full rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-300 ${submitted ? "bg-emerald-600 text-white" : "btn-primary"}`}
                     >
-                        {submitted ? "✓ Đã gửi xác nhận!" : "Gửi Xác Nhận"}
+                        {submitted ? "Đã gửi xác nhận" : "Gửi Xác Nhận"}
                     </button>
                 </form>
             </div>

@@ -3,10 +3,11 @@
 
 import { AppConfig, WeddingEvent } from "@/app/types/config";
 import { Plus, Trash2 } from "lucide-react";
+import type { UpdateConfig } from "./types";
 
 interface EventsFormProps {
     config: AppConfig;
-    updateConfig: (key: keyof AppConfig, value: any) => void;
+    updateConfig: UpdateConfig;
 }
 
 export default function EventsForm({ config, updateConfig }: EventsFormProps) {

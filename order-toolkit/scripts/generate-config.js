@@ -9,7 +9,8 @@
  * 2. Chạy: node generate-config.js input.csv output.json
  */
 
-const fs = require('fs');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const fs = require("fs");
 
 // Dữ liệu mẫu - Thay đổi theo form response của bạn
 const sampleData = {

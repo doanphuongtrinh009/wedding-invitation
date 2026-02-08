@@ -36,38 +36,29 @@ function PhotoGalleryComponent() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="py-20 md:py-28 paper-texture relative">
-            {/* Floating Decorations */}
-            <div className="absolute left-5 top-20 text-5xl opacity-20 animate-float">🌸</div>
-            <div className="absolute right-10 bottom-20 text-4xl opacity-15 animate-float" style={{ animationDelay: "2s" }}>🌺</div>
+        <section ref={sectionRef} className="relative py-24 md:py-28">
+            <div className="pointer-events-none absolute left-4 top-20 text-5xl opacity-15 animate-float">🌸</div>
+            <div className="pointer-events-none absolute bottom-20 right-8 text-4xl opacity-10 animate-float" style={{ animationDelay: "2s" }}>🌺</div>
 
-            <div className="max-w-5xl mx-auto px-4">
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <div className="reveal mb-4">
-                        <span className="text-4xl">📷</span>
-                    </div>
-                    <h2 className="reveal font-display text-3xl md:text-4xl text-[#2D3E33] mb-3">
-                        Album Ảnh Cưới
-                    </h2>
-                    <p className="reveal text-[#2D3E33]/60 text-sm tracking-wider">
-                        Những khoảnh khắc đáng nhớ của chúng tôi
-                    </p>
+            <div className="mx-auto max-w-6xl px-4 md:px-6">
+                <div className="mb-12 text-center md:mb-16">
+                    <div className="reveal mb-4 text-4xl">📷</div>
+                    <p className="reveal section-heading mb-2">Gallery</p>
+                    <h2 className="reveal section-title mb-3 text-4xl md:text-5xl">Album Ảnh Cưới</h2>
+                    <p className="reveal section-subtitle uppercase">Những khoảnh khắc đáng nhớ của chúng tôi</p>
                 </div>
 
-                {/* Polaroid Gallery */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
                     {PHOTOS.map((photo, index) => (
-                        <div
+                        <button
                             key={photo.id}
-                            className="reveal polaroid cursor-pointer"
+                            className="reveal polaroid cursor-pointer text-left"
                             style={{ animationDelay: `${index * 0.1}s` }}
                             onClick={() => openModal(photo.src)}
-                            role="button"
-                            tabIndex={0}
                             onKeyDown={(e) => e.key === "Enter" && openModal(photo.src)}
+                            type="button"
                         >
-                            <div className="relative aspect-[4/5] overflow-hidden">
+                            <div className="relative aspect-[4/5] overflow-hidden rounded-xl">
                                 <Image
                                     src={photo.src}
                                     alt={photo.alt}
@@ -77,39 +68,23 @@ function PhotoGalleryComponent() {
                                     loading="lazy"
                                 />
                             </div>
-                            <p className="text-center text-[#2D3E33]/50 text-xs mt-2 font-body">
-                                {photo.alt}
-                            </p>
-                        </div>
+                            <p className="mt-3 text-center text-xs text-[var(--color-text)]/55">{photo.alt}</p>
+                        </button>
                     ))}
                 </div>
             </div>
 
-            {/* Modal */}
             {selectedImage && (
-                <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 animate-fadeIn"
-                    onClick={closeModal}
-                >
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 animate-fadeIn" onClick={closeModal}>
                     <button
-                        className="absolute top-6 right-6 text-white/80 hover:text-white text-4xl transition-colors z-10"
+                        className="absolute right-6 top-6 z-10 rounded-full border border-white/30 bg-black/35 px-3 py-1 text-3xl text-white/85 transition-colors hover:text-white"
                         onClick={closeModal}
                         aria-label="Đóng"
                     >
                         ×
                     </button>
-                    <div
-                        className="relative max-w-4xl max-h-[85vh] w-full h-full"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <Image
-                            src={selectedImage}
-                            alt="Ảnh cưới"
-                            fill
-                            sizes="100vw"
-                            className="object-contain"
-                            priority
-                        />
+                    <div className="relative h-full w-full max-h-[85vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
+                        <Image src={selectedImage} alt="Ảnh cưới" fill sizes="100vw" className="object-contain" priority />
                     </div>
                 </div>
             )}

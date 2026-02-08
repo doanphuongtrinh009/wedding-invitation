@@ -1,4 +1,3 @@
-
 "use client";
 
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -14,20 +13,18 @@ export default function FormSection({ title, children, defaultOpen = false }: Fo
     const [isOpen, setIsOpen] = useState(defaultOpen);
 
     return (
-        <div className="border border-gray-200 rounded-lg mb-4 bg-white shadow-sm overflow-hidden">
+        <div className="card-elegant overflow-hidden rounded-3xl">
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
+                className="flex w-full items-center justify-between border-b border-[var(--border-soft)] bg-white/60 px-6 py-4 text-left transition-colors hover:bg-white/80"
             >
-                <span className="font-semibold text-lg text-gray-800">{title}</span>
-                {isOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                <span className="font-display text-2xl text-[var(--color-primary)]">{title}</span>
+                {isOpen ? <ChevronUp className="h-5 w-5 text-[var(--color-primary)]" /> : <ChevronDown className="h-5 w-5 text-[var(--color-primary)]" />}
             </button>
 
             {isOpen && (
-                <div className="p-6 border-t border-gray-200 animate-in fade-in slide-in-from-top-2 duration-200">
-                    {children}
-                </div>
+                <div className="animate-fadeIn px-6 py-6 md:px-8 md:py-8">{children}</div>
             )}
         </div>
     );

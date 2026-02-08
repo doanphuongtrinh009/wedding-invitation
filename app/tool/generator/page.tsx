@@ -1,7 +1,8 @@
 "use client";
 
 import { AppConfig, defaultConfig } from "@/app/types/config";
-import { Loader2, Send } from "lucide-react";
+import { LayoutTemplate, Loader2, Send } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import BankForm from "./components/BankForm";
 import CoupleForm from "./components/CoupleForm";
@@ -64,9 +65,18 @@ export default function ConfigGeneratorPage() {
                 <header className="card-elegant mb-8 rounded-[28px] px-6 py-8 text-center md:px-8 md:py-10">
                     <p className="section-heading mb-2">Wedding Generator</p>
                     <h1 className="section-title mb-3 text-4xl md:text-5xl">Thông Tin Thiệp Cưới</h1>
-                    <p className="text-sm leading-relaxed text-[var(--color-text)]/70 md:text-base">
+                    <p className="text-sm leading-relaxed text-[var(--color-text)]/70 md:text-base mb-6">
                         Vui lòng nhập đầy đủ thông tin bên dưới để tạo thiệp theo phong cách cao cấp.
                     </p>
+
+                    <Link
+                        href="/demo"
+                        target="_blank"
+                        className="btn-outline inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-wider shadow-sm transition-transform hover:-translate-y-0.5"
+                    >
+                        <LayoutTemplate size={14} />
+                        Xem Mẫu Giao Diện
+                    </Link>
                 </header>
 
                 <div className="space-y-6">

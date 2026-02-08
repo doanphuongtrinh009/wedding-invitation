@@ -3,7 +3,7 @@
 import { memo, useState } from "react";
 import Image from "next/image";
 import { Copy, Check } from "lucide-react";
-import { BANK_INFO } from "@/app/lib/data";
+import { BANK_INFO } from "@/app/utils/data";
 import type { BankAccount } from "@/app/types";
 
 const BankCard = memo(function BankCard({ bank }: { bank: BankAccount }) {

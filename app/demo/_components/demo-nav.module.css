@@ -1,0 +1,98 @@
+.shell {
+  position: sticky;
+  top: clamp(0.5rem, 1.2vw, 0.9rem);
+  z-index: 80;
+  margin: 0 auto;
+  width: min(1240px, 95vw);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 0.58rem 0.72rem;
+  border-radius: 999px;
+  border: 1px solid rgba(60, 46, 31, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(244, 236, 227, 0.72));
+  box-shadow: 0 14px 30px rgba(28, 21, 14, 0.12);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+
+.homeLink,
+.siteLink {
+  border: 1px solid rgba(64, 50, 33, 0.22);
+  border-radius: 999px;
+  padding: 0.4rem 0.76rem;
+  font-size: 0.64rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(45, 34, 24, 0.84);
+  transition: transform 0.24s ease, background-color 0.24s ease, border-color 0.24s ease;
+  white-space: nowrap;
+}
+
+.homeLink:hover,
+.siteLink:hover {
+  background: rgba(254, 249, 243, 0.86);
+  border-color: rgba(72, 54, 36, 0.36);
+  transform: translateY(-1px);
+}
+
+.rail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.link {
+  border-radius: 999px;
+  padding: 0.42rem 0.68rem;
+  font-size: 0.62rem;
+  line-height: 1;
+  letter-spacing: 0.105em;
+  text-transform: uppercase;
+  font-weight: 650;
+  color: rgba(55, 41, 28, 0.72);
+  border: 1px solid rgba(72, 54, 36, 0);
+  transition: color 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, transform 0.22s ease;
+  white-space: nowrap;
+}
+
+.link:hover {
+  color: rgba(36, 27, 19, 0.92);
+  border-color: rgba(75, 57, 39, 0.22);
+  background: rgba(255, 253, 250, 0.74);
+  transform: translateY(-1px);
+}
+
+.active {
+  color: rgba(34, 25, 17, 0.95);
+  border-color: rgba(75, 57, 39, 0.3);
+  background: rgba(255, 250, 244, 0.92);
+}
+
+@media (max-width: 860px) {
+  .shell {
+    top: 0.5rem;
+    border-radius: 1rem;
+    padding: 0.62rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .homeLink,
+  .siteLink {
+    display: none;
+  }
+
+  .rail {
+    justify-content: center;
+  }
+
+  .link {
+    font-size: 0.56rem;
+    padding: 0.42rem 0.56rem;
+    letter-spacing: 0.08em;
+  }
+}

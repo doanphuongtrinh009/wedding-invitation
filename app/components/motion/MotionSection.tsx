@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
-import { useRef } from "react";
+import { motion, type Variants } from "framer-motion";
 
 type MotionSectionProps = {
     children: React.ReactNode;

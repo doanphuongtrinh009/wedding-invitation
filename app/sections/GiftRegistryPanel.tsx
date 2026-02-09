@@ -4,7 +4,7 @@ import Image from "next/image";
 import { memo, useCallback, useState } from "react";
 import { Check, Copy } from "lucide-react";
 
-import { BANK_INFO } from "@/app/utils/data";
+import { BANK_INFO } from "@/app/lib/data";
 import type { BankAccount } from "@/app/types";
 
 function GiftRegistryPanelComponent() {

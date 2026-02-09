@@ -1,4 +1,4 @@
-import { CONFIG } from "@/app/utils/data";
+import { CONFIG } from "@/app/lib/data";
 
 const fallbackVenue = "Trung tâm hội nghị ven sông, TP. Hồ Chí Minh";
 

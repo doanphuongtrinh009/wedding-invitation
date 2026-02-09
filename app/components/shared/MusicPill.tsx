@@ -45,9 +45,7 @@ function MusicPillComponent({ src }: MusicPillProps) {
       try {
         await audio.play();
         setIsPlaying(true);
-      } catch (error) {
-        console.log("Autoplay blocked. Waiting for interaction...");
-
+      } catch {
         // Aggressive playback trigger on ANY interaction
         const enableAudio = async () => {
           try {
@@ -57,7 +55,7 @@ function MusicPillComponent({ src }: MusicPillProps) {
             ["click", "touchstart", "scroll", "mousemove", "keydown"].forEach(event =>
               document.removeEventListener(event, enableAudio)
             );
-          } catch (e) {
+          } catch {
             // Still failing? Keep trying on next interaction
           }
         };

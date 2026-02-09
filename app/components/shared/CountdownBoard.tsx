@@ -15,6 +15,11 @@ interface TimeLeft {
   seconds: number;
 }
 
+function seededUnit(seed: number): number {
+  const value = Math.sin(seed * 12.9898) * 43758.5453;
+  return value - Math.floor(value);
+}
+
 function calculateRemainingTime(targetDate: string): TimeLeft {
   const targetTime = new Date(targetDate).getTime();
 
@@ -38,14 +43,15 @@ function calculateRemainingTime(targetDate: string): TimeLeft {
 }
 
 const FloatingHearts = memo(() => {
-  // Generate a fixed set of hearts to avoid re-renders causing jumps
+  // Generate a fixed set of hearts with deterministic pseudo-random values.
   const hearts = useMemo(() => {
     return Array.from({ length: 15 }).map((_, i) => ({
       id: i,
-      left: Math.random() * 100, // Random horizontal position 0-100%
-      scale: 0.5 + Math.random() * 1.0, // Random scale 0.5 - 1.5
-      duration: 6 + Math.random() * 5, // Random duration 6-11s
-      delay: Math.random() * 5, // Random delay
+      left: seededUnit(i + 1) * 100,
+      scale: 0.5 + seededUnit(i + 11),
+      duration: 6 + seededUnit(i + 21) * 5,
+      delay: seededUnit(i + 31) * 5,
+      rotate: seededUnit(i + 41) * 360,
     }));
   }, []);
 
@@ -60,7 +66,7 @@ const FloatingHearts = memo(() => {
             y: [0, -600],
             opacity: [0, 1, 0],
             scale: [heart.scale, heart.scale * 1.2],
-            rotate: [0, Math.random() * 360], // Gentle rotation
+            rotate: [0, heart.rotate],
           }}
           transition={{
             duration: heart.duration,

@@ -1,8 +1,8 @@
 "use client";
 
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 
-import { INITIAL_MESSAGES } from "@/app/utils/data";
+import { INITIAL_MESSAGES } from "@/app/lib/data";
 import type { GuestMessage } from "@/app/types";
 
 interface GuestbookState {
@@ -48,8 +48,6 @@ function GuestbookWallComponent() {
     },
     [form]
   );
-
-  const visibleMessages = useMemo(() => messages.slice(0, 6), [messages]);
 
   return (
     <div className="lux-guestbook-wrap">

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Great_Vibes, Manrope, Playfair_Display, Dancing_Script } from "next/font/google";
 import "./styles/globals.css";
 
-import { CONFIG } from "@/app/utils/data";
-import { ThemeProvider } from "./components/layout/ThemeProvider";
+import { CONFIG } from "@/app/lib/data";
+import { ThemeProvider } from "./layouts/ThemeProvider";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin", "vietnamese"],

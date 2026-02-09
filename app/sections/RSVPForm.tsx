@@ -1,10 +1,6 @@
 "use client";
 
-import { memo, useCallback, useMemo, useState } from "react";
-
-interface RSVPLuxuryFormProps {
-  events: string[];
-}
+import { memo, useCallback, useState } from "react";
 
 type Attendance = "yes" | "no" | "maybe";
 
@@ -132,4 +128,3 @@ function RSVPLuxuryFormComponent() {
 }
 
 export const RSVPLuxuryForm = memo(RSVPLuxuryFormComponent);
-

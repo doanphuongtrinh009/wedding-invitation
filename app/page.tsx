@@ -14,13 +14,13 @@ import {
   PHOTOS,
   QUOTES,
   WEDDING_DATE,
-} from "./utils/data";
+} from "./lib/data";
 
 import { CountdownBoard } from "./components/shared/CountdownBoard";
 import { MusicPill } from "./components/shared/MusicPill";
-import { RSVPLuxuryForm } from "./features/rsvp/RSVPForm";
-import { GuestbookWall } from "./features/guestbook/GuestbookWall";
-import { GiftRegistryPanel } from "./features/registry/GiftRegistryPanel";
+import { RSVPLuxuryForm } from "./sections/RSVPForm";
+import { GuestbookWall } from "./sections/GuestbookWall";
+import { GiftRegistryPanel } from "./sections/GiftRegistryPanel";
 import { MotionSection, MotionText } from "./components/motion/MotionSection";
 import { useScrollToSection } from "./hooks/useScrollToSection";
 
@@ -110,7 +110,6 @@ const weddingDateLabel = new Intl.DateTimeFormat("vi-VN", {
 }).format(new Date(WEDDING_DATE));
 
 const heroVenue = EVENTS[2]?.location ?? EVENTS[0]?.location ?? "Địa điểm lễ cưới";
-const mapLink = EVENTS[2]?.mapLink ?? EVENTS[0]?.mapLink ?? "https://maps.google.com";
 
 const faqs = [
   {

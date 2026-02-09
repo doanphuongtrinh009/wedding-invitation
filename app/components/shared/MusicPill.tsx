@@ -8,6 +8,7 @@ interface MusicPillProps {
 
 function MusicPillComponent({ src }: MusicPillProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const hasAttemptedAutoplay = useRef(false);
   const [isReady, setIsReady] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -32,6 +33,26 @@ function MusicPillComponent({ src }: MusicPillProps) {
       audioRef.current = null;
     };
   }, [src]);
+
+  // Auto-play music when ready (only once)
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !isReady || hasAttemptedAutoplay.current) return;
+
+    hasAttemptedAutoplay.current = true;
+
+    const attemptAutoplay = async () => {
+      try {
+        await audio.play();
+        setIsPlaying(true);
+      } catch (error) {
+        // Autoplay blocked by browser - user needs to interact first
+        console.log("Autoplay prevented by browser policy");
+      }
+    };
+
+    attemptAutoplay();
+  }, [isReady]);
 
   const toggleMusic = useCallback(async () => {
     const audio = audioRef.current;

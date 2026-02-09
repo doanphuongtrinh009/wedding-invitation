@@ -1,6 +1,8 @@
 "use client";
 
 import { memo, useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
 
 interface CountdownBoardProps {
   targetDate: string;
@@ -35,22 +37,49 @@ function calculateRemainingTime(targetDate: string): TimeLeft {
   };
 }
 
+const FloatingHearts = memo(() => {
+  // Generate a fixed set of hearts to avoid re-renders causing jumps
+  const hearts = useMemo(() => {
+    return Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100, // Random horizontal position 0-100%
+      scale: 0.5 + Math.random() * 1.0, // Random scale 0.5 - 1.5
+      duration: 6 + Math.random() * 5, // Random duration 6-11s
+      delay: Math.random() * 5, // Random delay
+    }));
+  }, []);
+
+  return (
+    <div className="lux-countdown-hearts" aria-hidden="true">
+      {hearts.map((heart) => (
+        <motion.div
+          key={heart.id}
+          className="absolute bottom-[-50px]"
+          style={{ left: `${heart.left}%` }}
+          animate={{
+            y: [0, -600],
+            opacity: [0, 1, 0],
+            scale: [heart.scale, heart.scale * 1.2],
+            rotate: [0, Math.random() * 360], // Gentle rotation
+          }}
+          transition={{
+            duration: heart.duration,
+            repeat: Infinity,
+            delay: heart.delay,
+            ease: "linear",
+          }}
+        >
+          <Heart fill="#e74c3c" stroke="none" className="text-[#e74c3c] opacity-60" size={24 * heart.scale} />
+        </motion.div>
+      ))}
+    </div>
+  );
+});
+
+FloatingHearts.displayName = "FloatingHearts";
+
 function CountdownBoardComponent({ targetDate }: CountdownBoardProps) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => calculateRemainingTime(targetDate));
-
-  const formattedDate = useMemo(() => {
-    const parsedDate = new Date(targetDate);
-
-    if (Number.isNaN(parsedDate.getTime())) {
-      return targetDate;
-    }
-
-    return new Intl.DateTimeFormat("vi-VN", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    }).format(parsedDate);
-  }, [targetDate]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -87,6 +116,9 @@ function CountdownBoardComponent({ targetDate }: CountdownBoardProps) {
 
   return (
     <div className="lux-countdown" role="timer" aria-live="polite">
+      {/* Floating Hearts Animation */}
+      <FloatingHearts />
+
       <div className="lux-countdown-grid">
         {blocks.map((block) => (
           <div className="lux-countdown-item" key={block.label}>

@@ -92,16 +92,43 @@ function GuestbookWallComponent() {
         </form>
       </div>
 
-      <div className="lux-message-grid" aria-live="polite">
-        {visibleMessages.map((message) => (
-          <article className="lux-message-card" key={message.id}>
-            <header>
-              <h3>{message.name}</h3>
-              <time>{formatTimestamp(message.timestamp)}</time>
-            </header>
-            <p>{message.message}</p>
-          </article>
-        ))}
+      <div className="lux-guestbook-scroll-box">
+        <div className="lux-guestbook-track">
+          {/* Original List */}
+          {messages.slice(0, 8).map((message, index) => (
+            <div className="lux-message-card" key={`original-${message.id}`}>
+              <header>
+                <h3>{message.name}</h3>
+                <time>{formatTimestamp(message.timestamp)}</time>
+              </header>
+              <p>{message.message}</p>
+              {/* Floating hearts with staggered animation */}
+              <span
+                className="lux-floating-heart"
+                style={{ animationDelay: `${index * 0.5}s` }}
+              >
+                ♥
+              </span>
+            </div>
+          ))}
+
+          {/* Duplicated List for Seamless Loop */}
+          {messages.slice(0, 8).map((message, index) => (
+            <div className="lux-message-card" key={`duplicate-${message.id}`}>
+              <header>
+                <h3>{message.name}</h3>
+                <time>{formatTimestamp(message.timestamp)}</time>
+              </header>
+              <p>{message.message}</p>
+              <span
+                className="lux-floating-heart"
+                style={{ animationDelay: `${(index + 8) * 0.5}s` }}
+              >
+                ♥
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import { CalendarDays, MapPin, Sparkles } from "lucide-react";
+import { CalendarDays, Heart, MapPin, Sparkles } from "lucide-react";
 import * as motion from "framer-motion/client";
 
 import {
@@ -19,10 +21,11 @@ import { RSVPLuxuryForm } from "./features/rsvp/RSVPForm";
 import { GuestbookWall } from "./features/guestbook/GuestbookWall";
 import { GiftRegistryPanel } from "./features/registry/GiftRegistryPanel";
 import { MotionSection, MotionText } from "./components/motion/MotionSection";
+import { useScrollToSection } from "./hooks/useScrollToSection";
 
 const navLinks = [
   { href: "#story", label: "Câu chuyện" },
-  { href: "#schedule", label: "Lịch trình" },
+  { href: "#timeline", label: "Lịch trình" },
   { href: "#gallery", label: "Thư viện" },
   { href: "#registry", label: "Mừng cưới" },
   { href: "#rsvp", label: "Xác nhận" },
@@ -124,6 +127,8 @@ const faqs = [
 ];
 
 export default function WeddingInvitation() {
+  const handleScrollClick = useScrollToSection();
+
   return (
     <main className="lux-page">
       <MusicPill src={CONFIG.meta.musicUrl} />
@@ -135,7 +140,7 @@ export default function WeddingInvitation() {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="lux-nav">
-          <a href="#home" className="lux-brand">
+          <a href="#home" className="lux-brand" onClick={handleScrollClick}>
             <span className="lux-brand-kicker">Thiệp Cưới</span>
             <span className="lux-brand-script">
               {COUPLE.groom.shortName} &amp; {COUPLE.bride.shortName}
@@ -144,13 +149,13 @@ export default function WeddingInvitation() {
 
           <nav className="lux-nav-links" aria-label="Điều hướng chính">
             {navLinks.map((link) => (
-              <a href={link.href} key={link.href}>
+              <a href={link.href} key={link.href} onClick={handleScrollClick}>
                 {link.label}
               </a>
             ))}
           </nav>
 
-          <a href="#rsvp" className="lux-nav-cta">
+          <a href="#rsvp" className="lux-nav-cta" onClick={handleScrollClick}>
             Xác nhận
           </a>
         </div>
@@ -487,7 +492,7 @@ export default function WeddingInvitation() {
       </MotionSection>
 
       <MotionSection className="lux-section" id="rsvp">
-        <RSVPLuxuryForm events={EVENTS.map((event) => event.title)} />
+        <RSVPLuxuryForm />
       </MotionSection>
 
       <MotionSection className="lux-section" id="guestbook">
@@ -496,34 +501,35 @@ export default function WeddingInvitation() {
 
       <motion.footer
         className="lux-footer"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2 }}
+        viewport={{ once: true }}
       >
-        <div className="lux-footer-card">
-          <div className="lux-footer-content">
-            <h2 className="lux-footer-title">Cảm Ơn Bạn!</h2>
-            <p className="lux-footer-text">
-              Sự hiện diện của bạn là niềm hạnh phúc lớn lao của chúng tôi trong ngày trọng đại này.
-            </p>
+        <div className="lux-footer-premium">
+          <h2 className="lux-footer-title-script">Thank You</h2>
+          <p className="lux-footer-text-minimal">
+            Cảm ơn bạn đã là một phần quan trọng trong hành trình tình yêu của chúng mình. Sự hiện diện của bạn là món quà quý giá nhất.
+          </p>
 
-            <div className="lux-footer-names">
-              {COUPLE.groom.shortName} <span className="lux-footer-heart">♥</span> {COUPLE.bride.shortName}
-            </div>
+          <div className="lux-footer-names-display">
+            {COUPLE.groom.shortName} <span><Heart size={14} fill="#b58a57" stroke="none" /></span> {COUPLE.bride.shortName}
+          </div>
 
-            <div className="lux-footer-divider">
-              <span>♦</span>
-              <span>♦</span>
-              <span>♦</span>
-            </div>
+          <div className="lux-footer-ornament">
+            <div className="lux-footer-line"></div>
+            <span>♦</span>
+            <div className="lux-footer-line"></div>
+          </div>
 
-            <div className="lux-footer-credit-wrap">
-              <span className="lux-footer-credit">THỰC HIỆN BỞI │ {new Date(WEDDING_DATE).toLocaleDateString('vi-VN')}</span>
-              <a href="/tool/generator" className="lux-footer-btn">
-                <Sparkles size={14} />
-                Tạo thiệp cưới của bạn
-              </a>
-            </div>
+          <div className="lux-footer-bottom">
+            <span className="lux-footer-date-stamp">
+              SAVE THE DATE │ {new Date(WEDDING_DATE).toLocaleDateString('vi-VN')}
+            </span>
+            <a href="/tool/generator" className="lux-footer-generator-link">
+              <Sparkles size={10} />
+              Tạo thiệp cưới của bạn
+            </a>
           </div>
         </div>
       </motion.footer>

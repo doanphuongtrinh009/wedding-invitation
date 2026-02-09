@@ -41,17 +41,30 @@ function MusicPillComponent({ src }: MusicPillProps) {
 
     hasAttemptedAutoplay.current = true;
 
-    const attemptAutoplay = async () => {
+    const playAudio = async () => {
       try {
         await audio.play();
         setIsPlaying(true);
       } catch (error) {
-        // Autoplay blocked by browser - user needs to interact first
-        console.log("Autoplay prevented by browser policy");
+        console.log("Autoplay blocked. Waiting for interaction...");
+        // If blocked, wait for first interaction to play
+        const enableAudio = async () => {
+          try {
+            await audio.play();
+            setIsPlaying(true);
+            document.removeEventListener("click", enableAudio);
+            document.removeEventListener("touchstart", enableAudio);
+          } catch (e) {
+            // Still failing, keep listener
+          }
+        };
+
+        document.addEventListener("click", enableAudio, { once: true });
+        document.addEventListener("touchstart", enableAudio, { once: true });
       }
     };
 
-    attemptAutoplay();
+    playAudio();
   }, [isReady]);
 
   const toggleMusic = useCallback(async () => {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import { CalendarDays, Heart, MapPin, Sparkles } from "lucide-react";
 import * as motion from "framer-motion/client";
@@ -128,6 +129,12 @@ const faqs = [
 
 export default function WeddingInvitation() {
   const handleScrollClick = useScrollToSection();
+
+  // Force scroll to top on refresh
+  useEffect(() => {
+    window.history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <main className="lux-page">

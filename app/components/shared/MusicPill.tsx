@@ -47,20 +47,25 @@ function MusicPillComponent({ src }: MusicPillProps) {
         setIsPlaying(true);
       } catch (error) {
         console.log("Autoplay blocked. Waiting for interaction...");
-        // If blocked, wait for first interaction to play
+
+        // Aggressive playback trigger on ANY interaction
         const enableAudio = async () => {
           try {
             await audio.play();
             setIsPlaying(true);
-            document.removeEventListener("click", enableAudio);
-            document.removeEventListener("touchstart", enableAudio);
+            // Remove all temporary listeners on success
+            ["click", "touchstart", "scroll", "mousemove", "keydown"].forEach(event =>
+              document.removeEventListener(event, enableAudio)
+            );
           } catch (e) {
-            // Still failing, keep listener
+            // Still failing? Keep trying on next interaction
           }
         };
 
-        document.addEventListener("click", enableAudio, { once: true });
-        document.addEventListener("touchstart", enableAudio, { once: true });
+        // Add listeners for almost any user activity
+        ["click", "touchstart", "scroll", "mousemove", "keydown"].forEach(event =>
+          document.addEventListener(event, enableAudio, { once: true, passive: true })
+        );
       }
     };
 

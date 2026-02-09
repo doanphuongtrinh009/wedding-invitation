@@ -32,10 +32,10 @@ export default function EditorialDemoPage() {
   return (
     <main className={styles.page}>
       <MusicPill src="/music/wedding-song.mp3" />
-      <DemoRouteNav current="editorial" />
+      <DemoRouteNav current="editorial" mode="floating" />
 
       <section className={styles.hero} id="home">
-        <ParallaxBlock className={styles.heroImageWrap} travel={52}>
+        <ParallaxBlock className={styles.heroImageWrap} travel={12}>
           <figure className={styles.heroImageFrame}>
             <Image
               src={heroImage.src}
@@ -102,6 +102,31 @@ export default function EditorialDemoPage() {
         </StaggerGroup>
       </section>
 
+      <FadeInSection className={styles.gallery} id="gallery">
+        <header>
+          <p className={styles.featureLabel}>Thư viện ảnh</p>
+          <h2>Bộ ảnh editorial</h2>
+        </header>
+
+        <div className={styles.galleryGrid}>
+          {editorialGallery.map((photo, index) => (
+            <figure key={photo.id} className={index === 0 ? styles.large : ""}>
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                placeholder="blur"
+                blurDataURL={photo.blurDataURL}
+                loading="lazy"
+                quality={88}
+                sizes="(max-width: 900px) 100vw, 33vw"
+                style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
+              />
+            </figure>
+          ))}
+        </div>
+      </FadeInSection>
+
       <FadeInSection className={styles.feature} id="story">
         <div className={styles.featureBody}>
           <p className={styles.featureLabel}>Story Timeline</p>
@@ -158,27 +183,27 @@ export default function EditorialDemoPage() {
         </div>
       </FadeInSection>
 
-      <FadeInSection className={styles.gallery} id="gallery">
+      <FadeInSection className={styles.gifts} id="gift">
         <header>
-          <p className={styles.featureLabel}>Thư viện ảnh</p>
-          <h2>Bộ ảnh editorial</h2>
+          <p className={styles.featureLabel}>Mừng cưới</p>
+          <h2>Thông tin mừng cưới</h2>
         </header>
 
-        <div className={styles.galleryGrid}>
-          {editorialGallery.map((photo, index) => (
-            <figure key={photo.id} className={index === 0 ? styles.large : ""}>
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                fill
-                placeholder="blur"
-                blurDataURL={photo.blurDataURL}
-                loading="lazy"
-                quality={88}
-                sizes="(max-width: 900px) 100vw, 33vw"
-                style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
-              />
-            </figure>
+        <div className={styles.giftGrid}>
+          {demoContent.gifts.map((gift) => (
+            <article key={gift.id}>
+              <div className={styles.giftHead}>
+                <Gift size={16} />
+                <p>{gift.sideLabel}</p>
+              </div>
+              <div className={styles.qrWrap}>
+                <Image src={gift.qrImage} alt={`Mã QR ${gift.bankName}`} fill sizes="120px" />
+              </div>
+              <h3>{gift.bankName}</h3>
+              <p>{gift.accountName}</p>
+              <p>{gift.accountNumber}</p>
+              <p>{gift.branch}</p>
+            </article>
           ))}
         </div>
       </FadeInSection>
@@ -209,31 +234,6 @@ export default function EditorialDemoPage() {
           </label>
           <button type="submit">Gửi xác nhận</button>
         </form>
-      </FadeInSection>
-
-      <FadeInSection className={styles.gifts} id="gift">
-        <header>
-          <p className={styles.featureLabel}>Mừng cưới</p>
-          <h2>Thông tin mừng cưới</h2>
-        </header>
-
-        <div className={styles.giftGrid}>
-          {demoContent.gifts.map((gift) => (
-            <article key={gift.id}>
-              <div className={styles.giftHead}>
-                <Gift size={16} />
-                <p>{gift.sideLabel}</p>
-              </div>
-              <div className={styles.qrWrap}>
-                <Image src={gift.qrImage} alt={`Mã QR ${gift.bankName}`} fill sizes="120px" />
-              </div>
-              <h3>{gift.bankName}</h3>
-              <p>{gift.accountName}</p>
-              <p>{gift.accountNumber}</p>
-              <p>{gift.branch}</p>
-            </article>
-          ))}
-        </div>
       </FadeInSection>
 
       <footer className={styles.footer}>

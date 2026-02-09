@@ -30,7 +30,7 @@ export default function DarkLuxuryDemoPage() {
   return (
     <main className={styles.page}>
       <MusicPill src="/music/wedding-song.mp3" />
-      <DemoRouteNav current="luxury" />
+      <DemoRouteNav current="luxury" mode="overlay" />
 
       <section className={styles.hero} id="home">
         <ParallaxBlock className={styles.heroMedia} travel={60}>
@@ -82,6 +82,33 @@ export default function DarkLuxuryDemoPage() {
         </StaggerGroup>
       </section>
 
+      <FadeInSection className={styles.gallery} id="gallery">
+        <header>
+          <p className={styles.kicker}>Thư viện ảnh</p>
+          <h2>Bộ ảnh dark luxury</h2>
+        </header>
+
+        <div className={styles.galleryGrid}>
+          {luxuryGallery.map((photo, index) => (
+            <FadeInBlock key={photo.id} className={index === 0 ? styles.heroTile : ""} delay={index * 0.04}>
+              <figure>
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  placeholder="blur"
+                  blurDataURL={photo.blurDataURL}
+                  loading="lazy"
+                  quality={88}
+                  sizes="(max-width: 900px) 100vw, 33vw"
+                  style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
+                />
+              </figure>
+            </FadeInBlock>
+          ))}
+        </div>
+      </FadeInSection>
+
       <FadeInSection className={styles.houseNotes} id="story">
         <div className={styles.noteLead}>
           <p className={styles.kicker}>Hành trình tình yêu</p>
@@ -116,33 +143,6 @@ export default function DarkLuxuryDemoPage() {
               <p>{event.time}</p>
               <p>{event.location}</p>
             </article>
-          ))}
-        </div>
-      </FadeInSection>
-
-      <FadeInSection className={styles.gallery} id="gallery">
-        <header>
-          <p className={styles.kicker}>Thư viện ảnh</p>
-          <h2>Bộ ảnh dark luxury</h2>
-        </header>
-
-        <div className={styles.galleryGrid}>
-          {luxuryGallery.map((photo, index) => (
-            <FadeInBlock key={photo.id} className={index === 0 ? styles.heroTile : ""} delay={index * 0.04}>
-              <figure>
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  placeholder="blur"
-                  blurDataURL={photo.blurDataURL}
-                  loading="lazy"
-                  quality={88}
-                  sizes="(max-width: 900px) 100vw, 33vw"
-                  style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
-                />
-              </figure>
-            </FadeInBlock>
           ))}
         </div>
       </FadeInSection>

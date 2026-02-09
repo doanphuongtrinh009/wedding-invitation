@@ -31,7 +31,7 @@ export default function StoryDemoPage() {
   return (
     <main className={styles.page}>
       <MusicPill src="/music/wedding-song.mp3" />
-      <DemoRouteNav current="story" />
+      <DemoRouteNav current="story" mode="story" />
 
       <section className={styles.cover} id="home">
         <ParallaxBlock className={styles.coverMedia} travel={42}>
@@ -71,44 +71,6 @@ export default function StoryDemoPage() {
       </section>
 
       <div className={styles.storyLayout}>
-        <aside className={styles.rail}>
-          <p>Mục lục</p>
-          <ol>
-            {chaptersWithImages.map((chapter, index) => (
-              <li key={chapter.id}>
-                <a href={`#${chapter.id}`}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  {chapter.title}
-                </a>
-              </li>
-            ))}
-            <li>
-              <a href="#schedule">
-                <span>06</span>
-                Lịch trình
-              </a>
-            </li>
-            <li>
-              <a href="#gallery">
-                <span>07</span>
-                Thư viện ảnh
-              </a>
-            </li>
-            <li>
-              <a href="#rsvp">
-                <span>08</span>
-                Xác nhận
-              </a>
-            </li>
-            <li>
-              <a href="#gift">
-                <span>09</span>
-                Mừng cưới
-              </a>
-            </li>
-          </ol>
-        </aside>
-
         <div className={styles.chapterStack}>
           {chaptersWithImages.map((chapter) => (
             <FadeInSection key={chapter.id} className={styles.chapter} id={chapter.id}>

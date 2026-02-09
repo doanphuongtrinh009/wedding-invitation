@@ -25,7 +25,7 @@ export default function RomanticDemoPage() {
   return (
     <main className={styles.page}>
       <MusicPill src="/music/wedding-song.mp3" />
-      <DemoRouteNav current="romantic" />
+      <DemoRouteNav current="romantic" mode="classic" />
 
       <section className={styles.hero} id="home">
         <div className={styles.petalAura} aria-hidden />
@@ -79,23 +79,6 @@ export default function RomanticDemoPage() {
         </ParallaxBlock>
       </section>
 
-      <FadeInSection className={styles.moments} id="moments">
-        <header>
-          <p className={styles.eyebrow}>Hành trình tình yêu</p>
-          <h2>Những khoảnh khắc dễ thương của chúng tôi</h2>
-        </header>
-
-        <div className={styles.momentList}>
-          {romanticMoments.map((moment) => (
-            <article key={moment.id}>
-              <p>{moment.date}</p>
-              <h3>{moment.title}</h3>
-              <p>{moment.description}</p>
-            </article>
-          ))}
-        </div>
-      </FadeInSection>
-
       <FadeInSection className={styles.events} id="events">
         <header>
           <p className={styles.eyebrow}>Lịch trình sự kiện</p>
@@ -112,6 +95,23 @@ export default function RomanticDemoPage() {
               <p>{event.date}</p>
               <p>{event.time}</p>
               <p>{event.location}</p>
+            </article>
+          ))}
+        </div>
+      </FadeInSection>
+
+      <FadeInSection className={styles.moments} id="moments">
+        <header>
+          <p className={styles.eyebrow}>Hành trình tình yêu</p>
+          <h2>Những khoảnh khắc dễ thương của chúng tôi</h2>
+        </header>
+
+        <div className={styles.momentList}>
+          {romanticMoments.map((moment) => (
+            <article key={moment.id}>
+              <p>{moment.date}</p>
+              <h3>{moment.title}</h3>
+              <p>{moment.description}</p>
             </article>
           ))}
         </div>

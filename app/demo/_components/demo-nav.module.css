@@ -1,39 +1,29 @@
 .shell {
-  position: sticky;
-  top: clamp(0.5rem, 1.2vw, 0.9rem);
-  z-index: 80;
-  margin: 0 auto;
-  width: min(1240px, 95vw);
-  display: flex;
+  z-index: 90;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.7rem;
-  padding: 0.58rem 0.72rem;
-  border-radius: 999px;
-  border: 1px solid rgba(60, 46, 31, 0.2);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(244, 236, 227, 0.72));
-  box-shadow: 0 14px 30px rgba(28, 21, 14, 0.12);
-  backdrop-filter: blur(14px) saturate(140%);
+  gap: 0.68rem;
+  width: min(1220px, 94vw);
+  margin-inline: auto;
+  transition: background-color 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
 }
 
 .homeLink,
 .siteLink {
-  border: 1px solid rgba(64, 50, 33, 0.22);
   border-radius: 999px;
-  padding: 0.4rem 0.76rem;
-  font-size: 0.64rem;
-  font-weight: 650;
-  letter-spacing: 0.12em;
+  padding: 0.44rem 0.78rem;
+  border: 1px solid rgba(90, 68, 44, 0.24);
+  font-size: 0.61rem;
   text-transform: uppercase;
-  color: rgba(45, 34, 24, 0.84);
-  transition: transform 0.24s ease, background-color 0.24s ease, border-color 0.24s ease;
+  letter-spacing: 0.13em;
+  font-weight: 700;
   white-space: nowrap;
+  transition: transform 0.24s ease, background-color 0.24s ease, border-color 0.24s ease;
 }
 
 .homeLink:hover,
 .siteLink:hover {
-  background: rgba(254, 249, 243, 0.86);
-  border-color: rgba(72, 54, 36, 0.36);
   transform: translateY(-1px);
 }
 
@@ -41,49 +31,293 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
   flex-wrap: wrap;
+  gap: 0.22rem;
 }
 
 .link {
   border-radius: 999px;
-  padding: 0.42rem 0.68rem;
-  font-size: 0.62rem;
-  line-height: 1;
-  letter-spacing: 0.105em;
+  padding: 0.42rem 0.7rem;
+  border: 1px solid transparent;
+  font-size: 0.6rem;
   text-transform: uppercase;
+  letter-spacing: 0.11em;
   font-weight: 650;
-  color: rgba(55, 41, 28, 0.72);
-  border: 1px solid rgba(72, 54, 36, 0);
-  transition: color 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, transform 0.22s ease;
   white-space: nowrap;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .link:hover {
-  color: rgba(36, 27, 19, 0.92);
-  border-color: rgba(75, 57, 39, 0.22);
-  background: rgba(255, 253, 250, 0.74);
   transform: translateY(-1px);
 }
 
 .active {
-  color: rgba(34, 25, 17, 0.95);
-  border-color: rgba(75, 57, 39, 0.3);
-  background: rgba(255, 250, 244, 0.92);
+  font-weight: 700;
 }
 
-@media (max-width: 860px) {
+.modeFloating {
+  position: fixed;
+  top: clamp(0.9rem, 2.2vw, 1.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1160px, 92vw);
+  padding: 0.48rem 0.58rem;
+  border-radius: 999px;
+  border: 1px solid rgba(57, 42, 26, 0.2);
+  background: rgba(247, 241, 232, 0.9);
+  box-shadow: 0 18px 38px rgba(24, 16, 8, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+.modeFloating .rail {
+  flex-wrap: nowrap;
+}
+
+.modeFloating .homeLink,
+.modeFloating .siteLink {
+  border-color: rgba(57, 42, 26, 0.24);
+  color: rgba(39, 28, 17, 0.84);
+  background: rgba(255, 252, 248, 0.76);
+}
+
+.modeFloating .homeLink:hover,
+.modeFloating .siteLink:hover {
+  border-color: rgba(57, 42, 26, 0.38);
+  background: #fff;
+}
+
+.modeFloating .link {
+  color: rgba(53, 39, 24, 0.68);
+}
+
+.modeFloating .link:hover {
+  color: rgba(31, 21, 13, 0.9);
+  border-color: rgba(57, 42, 26, 0.22);
+}
+
+.modeFloating .active {
+  color: rgba(29, 21, 13, 0.96);
+  border-color: rgba(57, 42, 26, 0.32);
+  background: rgba(255, 251, 245, 0.92);
+}
+
+.modeClassic {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  max-width: none;
+  padding: 0.7rem clamp(1rem, 2vw, 2rem);
+  border-bottom: 1px solid rgba(177, 129, 150, 0.26);
+  background: linear-gradient(180deg, rgba(255, 244, 248, 0.95), rgba(255, 247, 249, 0.86));
+  box-shadow: 0 10px 24px rgba(147, 96, 116, 0.12);
+}
+
+.modeClassic .homeLink,
+.modeClassic .siteLink {
+  border-color: rgba(188, 136, 157, 0.38);
+  color: rgba(100, 67, 74, 0.84);
+  background: rgba(255, 252, 253, 0.86);
+}
+
+.modeClassic .homeLink:hover,
+.modeClassic .siteLink:hover {
+  border-color: rgba(188, 136, 157, 0.5);
+  background: #fff;
+}
+
+.modeClassic .link {
+  color: rgba(106, 74, 82, 0.78);
+}
+
+.modeClassic .link:hover {
+  color: rgba(87, 60, 68, 0.94);
+  border-color: rgba(188, 136, 157, 0.36);
+  background: rgba(255, 251, 253, 0.94);
+}
+
+.modeClassic .active {
+  color: rgba(82, 56, 64, 0.96);
+  border-color: rgba(188, 136, 157, 0.44);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.modeThin {
+  position: sticky;
+  top: 0.2rem;
+  width: min(1060px, 92vw);
+  padding: 0.34rem 0;
+  border-bottom: 1px solid rgba(17, 17, 16, 0.18);
+  background: rgba(247, 247, 245, 0.84);
+  box-shadow: none;
+  backdrop-filter: blur(4px);
+}
+
+.modeThin .homeLink,
+.modeThin .siteLink {
+  border: none;
+  background: none;
+  color: rgba(17, 17, 16, 0.62);
+  padding: 0.32rem 0.1rem;
+  letter-spacing: 0.15em;
+}
+
+.modeThin .homeLink:hover,
+.modeThin .siteLink:hover {
+  color: rgba(17, 17, 16, 0.9);
+  transform: none;
+}
+
+.modeThin .rail {
+  gap: 0.5rem;
+}
+
+.modeThin .link {
+  border-radius: 0;
+  border: none;
+  padding: 0.32rem 0.1rem;
+  color: rgba(17, 17, 16, 0.58);
+  letter-spacing: 0.14em;
+  font-weight: 600;
+}
+
+.modeThin .link:hover {
+  color: rgba(17, 17, 16, 0.88);
+  background: none;
+  transform: none;
+}
+
+.modeThin .active {
+  color: rgba(17, 17, 16, 0.96);
+  position: relative;
+}
+
+.modeThin .active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.24rem;
+  height: 1px;
+  background: rgba(17, 17, 16, 0.6);
+}
+
+.modeOverlay {
+  position: fixed;
+  top: clamp(0.9rem, 2.2vw, 1.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1180px, 92vw);
+  padding: 0.52rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid rgba(207, 161, 101, 0.28);
+  background: rgba(7, 7, 7, 0.52);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px) saturate(125%);
+}
+
+.modeOverlay .homeLink,
+.modeOverlay .siteLink {
+  border-color: rgba(210, 164, 102, 0.28);
+  color: rgba(247, 225, 190, 0.9);
+  background: rgba(19, 16, 12, 0.6);
+}
+
+.modeOverlay .homeLink:hover,
+.modeOverlay .siteLink:hover {
+  border-color: rgba(210, 164, 102, 0.46);
+  background: rgba(31, 24, 16, 0.74);
+}
+
+.modeOverlay .link {
+  color: rgba(237, 210, 169, 0.78);
+}
+
+.modeOverlay .link:hover {
+  color: rgba(250, 230, 200, 0.98);
+  border-color: rgba(210, 164, 102, 0.3);
+  background: rgba(25, 20, 14, 0.66);
+}
+
+.modeOverlay .active {
+  color: rgba(252, 234, 206, 0.98);
+  border-color: rgba(210, 164, 102, 0.46);
+  background: rgba(35, 27, 18, 0.8);
+}
+
+.modeStory {
+  position: fixed;
+  top: clamp(0.9rem, 2.2vw, 1.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(980px, 86vw);
+  padding: 0.5rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid rgba(88, 115, 162, 0.34);
+  background: rgba(232, 239, 254, 0.74);
+  box-shadow: 0 16px 34px rgba(29, 45, 78, 0.2);
+  backdrop-filter: blur(10px) saturate(118%);
+}
+
+.modeStory .homeLink,
+.modeStory .siteLink {
+  border-color: rgba(88, 115, 162, 0.36);
+  color: rgba(34, 49, 78, 0.85);
+  background: rgba(246, 250, 255, 0.76);
+}
+
+.modeStory .homeLink:hover,
+.modeStory .siteLink:hover {
+  border-color: rgba(88, 115, 162, 0.52);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.modeStory .link {
+  color: rgba(44, 63, 99, 0.76);
+}
+
+.modeStory .link:hover {
+  color: rgba(35, 51, 83, 0.94);
+  border-color: rgba(88, 115, 162, 0.34);
+  background: rgba(246, 250, 255, 0.86);
+}
+
+.modeStory .active {
+  color: rgba(30, 46, 76, 0.96);
+  border-color: rgba(88, 115, 162, 0.46);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+@media (max-width: 980px) {
+  .modeFloating,
+  .modeOverlay,
+  .modeStory {
+    width: min(700px, 92vw);
+  }
+
   .shell {
-    top: 0.5rem;
-    border-radius: 1rem;
-    padding: 0.62rem;
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
   }
 
   .homeLink,
   .siteLink {
     display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .modeClassic,
+  .modeThin {
+    top: 0;
+    padding-inline: 0.7rem;
+  }
+
+  .modeFloating,
+  .modeOverlay,
+  .modeStory {
+    top: 0.45rem;
+    border-radius: 0.9rem;
+    padding: 0.5rem;
   }
 
   .rail {
@@ -91,8 +325,8 @@
   }
 
   .link {
-    font-size: 0.56rem;
-    padding: 0.42rem 0.56rem;
+    font-size: 0.55rem;
     letter-spacing: 0.08em;
+    padding: 0.38rem 0.5rem;
   }
 }

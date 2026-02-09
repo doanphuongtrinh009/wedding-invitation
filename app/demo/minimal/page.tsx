@@ -24,7 +24,7 @@ export default function MinimalDemoPage() {
   return (
     <main className={styles.page}>
       <MusicPill src="/music/wedding-song.mp3" />
-      <DemoRouteNav current="minimal" />
+      <DemoRouteNav current="minimal" mode="thin" />
 
       <section className={styles.hero} id="home">
         <div className={styles.heroVisual} aria-hidden>
@@ -71,23 +71,6 @@ export default function MinimalDemoPage() {
         </StaggerGroup>
       </section>
 
-      <FadeInSection className={styles.timeline} id="timeline">
-        <header>
-          <p className={styles.kicker}>Hành trình tình yêu</p>
-          <h2>Nhịp kể chuyện tối giản</h2>
-        </header>
-
-        <div className={styles.timelineRows}>
-          {demoContent.storyMoments.map((moment) => (
-            <article key={moment.id}>
-              <p>{moment.date}</p>
-              <h3>{moment.title}</h3>
-              <p>{moment.description}</p>
-            </article>
-          ))}
-        </div>
-      </FadeInSection>
-
       <FadeInSection className={styles.schedule} id="schedule">
         <header>
           <p className={styles.kicker}>Lịch trình sự kiện</p>
@@ -101,6 +84,23 @@ export default function MinimalDemoPage() {
               <p>{event.date}</p>
               <p>{event.time}</p>
               <p>{event.location}</p>
+            </article>
+          ))}
+        </div>
+      </FadeInSection>
+
+      <FadeInSection className={styles.timeline} id="timeline">
+        <header>
+          <p className={styles.kicker}>Hành trình tình yêu</p>
+          <h2>Nhịp kể chuyện tối giản</h2>
+        </header>
+
+        <div className={styles.timelineRows}>
+          {demoContent.storyMoments.map((moment) => (
+            <article key={moment.id}>
+              <p>{moment.date}</p>
+              <h3>{moment.title}</h3>
+              <p>{moment.description}</p>
             </article>
           ))}
         </div>

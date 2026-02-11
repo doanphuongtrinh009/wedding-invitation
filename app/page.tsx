@@ -14,17 +14,17 @@ import {
   PHOTOS,
   QUOTES,
   WEDDING_DATE,
-} from "./lib/data";
+} from "@/app/lib/data";
 
-import { CountdownBoard } from "./components/shared/CountdownBoard";
-import { MusicPill } from "./components/shared/MusicPill";
-import { RSVPLuxuryForm } from "./sections/RSVPForm";
-import { GuestbookWall } from "./sections/GuestbookWall";
-import { GiftRegistryPanel } from "./sections/GiftRegistryPanel";
-import { MotionSection, MotionText } from "./components/motion/MotionSection";
-import { useScrollToSection } from "./hooks/useScrollToSection";
+import { MotionSection, MotionText } from "@/app/components/motion/MotionSection";
+import { CountdownBoard } from "@/app/components/shared/CountdownBoard";
+import { MusicPill } from "@/app/components/shared/MusicPill";
+import { useScrollToSection } from "@/app/hooks/useScrollToSection";
+import { GiftRegistryPanel } from "@/app/sections/GiftRegistryPanel";
+import { GuestbookWall } from "@/app/sections/GuestbookWall";
+import { RSVPLuxuryForm } from "@/app/sections/RSVPForm";
 
-const navLinks = [
+const NAV_LINKS = [
   { href: "#story", label: "Câu chuyện" },
   { href: "#timeline", label: "Lịch trình" },
   { href: "#gallery", label: "Thư viện" },
@@ -32,13 +32,13 @@ const navLinks = [
   { href: "#rsvp", label: "Xác nhận" },
 ];
 
-const heroCollage = [
+const HERO_COLLAGE = [
   COUPLE.coverImage,
   PHOTOS[0]?.src ?? COUPLE.coverImage,
   PHOTOS[1]?.src ?? COUPLE.coverImage,
 ];
 
-const storyMoments = LOVE_STORY.length
+const STORY_MOMENTS = LOVE_STORY.length
   ? LOVE_STORY.slice(0, 4)
   : [
     {
@@ -58,7 +58,7 @@ const storyMoments = LOVE_STORY.length
   ];
 
 // Wedding day timeline
-const weddingTimeline = [
+const WEDDING_TIMELINE = [
   {
     time: "13:00",
     title: "Lễ Thành Hôn",
@@ -91,7 +91,7 @@ const weddingTimeline = [
   },
 ];
 
-const galleryPhotos = PHOTOS.length
+const GALLERY_PHOTOS = PHOTOS.length
   ? PHOTOS.slice(0, 8)
   : [
     { id: 1001, src: COUPLE.coverImage, alt: "Khoảnh khắc cưới" },
@@ -102,16 +102,16 @@ const galleryPhotos = PHOTOS.length
     { id: 1006, src: COUPLE.coverImage, alt: "Khoảnh khắc cưới" },
   ];
 
-const weddingDateLabel = new Intl.DateTimeFormat("vi-VN", {
+const WEDDING_DATE_LABEL = new Intl.DateTimeFormat("vi-VN", {
   weekday: "long",
   day: "2-digit",
   month: "long",
   year: "numeric",
 }).format(new Date(WEDDING_DATE));
 
-const heroVenue = EVENTS[2]?.location ?? EVENTS[0]?.location ?? "Địa điểm lễ cưới";
+const HERO_VENUE = EVENTS[2]?.location ?? EVENTS[0]?.location ?? "Địa điểm lễ cưới";
 
-const faqs = [
+const FAQS = [
   {
     question: "Có chỗ gửi xe tại địa điểm tiệc không?",
     answer: "Có. Địa điểm có khu vực gửi xe máy và ô tô riêng, nhân viên hướng dẫn tại cổng chính.",
@@ -125,6 +125,64 @@ const faqs = [
     answer: "Có. Bạn chọn trạng thái 'Tôi xác nhận sau' trong form xác nhận tham dự, sau đó cập nhật lại trước ngày cưới.",
   },
 ];
+
+function getEventIcon(index: number) {
+  if (index === 0) {
+    return (
+      <svg
+        width="36"
+        height="36"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M12 2C10.9 2 10 2.9 10 4C10 5.1 10.9 6 12 6C13.1 6 14 5.1 14 4C14 2.9 13.1 2 12 2Z" />
+        <circle cx="7" cy="14" r="5" />
+        <circle cx="17" cy="14" r="5" />
+        <path d="M7 9L17 9" />
+      </svg>
+    );
+  }
+
+  if (index === 1) {
+    return (
+      <svg
+        width="36"
+        height="36"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        <path d="M3 3L4 4M20 3L21 4" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      width="36"
+      height="36"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 2L8 10L6 18M18 2L16 10L18 18" />
+      <path d="M6 18L6 22M18 18L18 22" />
+      <path d="M4 22L8 22M16 22L20 22" />
+      <path d="M8 10L16 10" />
+    </svg>
+  );
+}
 
 export default function WeddingInvitation() {
   const handleScrollClick = useScrollToSection();
@@ -154,7 +212,7 @@ export default function WeddingInvitation() {
           </a>
 
           <nav className="lux-nav-links" aria-label="Điều hướng chính">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <a href={link.href} key={link.href} onClick={handleScrollClick}>
                 {link.label}
               </a>
@@ -210,10 +268,10 @@ export default function WeddingInvitation() {
               transition={{ delay: 0.7 }}
             >
               <p>
-                <CalendarDays size={14} /> {weddingDateLabel}
+                <CalendarDays size={14} /> {WEDDING_DATE_LABEL}
               </p>
               <p>
-                <MapPin size={14} /> {heroVenue}
+                <MapPin size={14} /> {HERO_VENUE}
               </p>
             </motion.div>
 
@@ -249,7 +307,7 @@ export default function WeddingInvitation() {
           >
             <figure className="lux-photo lux-photo--primary">
               <Image
-                src={heroCollage[0]}
+                src={HERO_COLLAGE[0]}
                 alt={`Ảnh cưới của ${COUPLE.groom.shortName} và ${COUPLE.bride.shortName}`}
                 fill
                 sizes="(max-width: 980px) 90vw, 42vw"
@@ -258,11 +316,11 @@ export default function WeddingInvitation() {
             </figure>
 
             <figure className="lux-photo lux-photo--secondary">
-              <Image src={heroCollage[1]} alt="Khoảnh khắc của cặp đôi" fill sizes="(max-width: 980px) 35vw, 16vw" />
+              <Image src={HERO_COLLAGE[1]} alt="Khoảnh khắc của cặp đôi" fill sizes="(max-width: 980px) 35vw, 16vw" />
             </figure>
 
             <figure className="lux-photo lux-photo--tertiary">
-              <Image src={heroCollage[2]} alt="Khoảnh khắc của cặp đôi" fill sizes="(max-width: 980px) 38vw, 18vw" />
+              <Image src={HERO_COLLAGE[2]} alt="Khoảnh khắc của cặp đôi" fill sizes="(max-width: 980px) 38vw, 18vw" />
             </figure>
 
           </motion.div>
@@ -284,10 +342,10 @@ export default function WeddingInvitation() {
 
         <div className="lux-timeline-alt">
           <div className="lux-timeline-alt-line"></div>
-          {storyMoments.map((moment, index) => (
+          {STORY_MOMENTS.map((moment, index) => (
             <motion.article
               key={`${moment.date}-${moment.title}`}
-              className={`lux-timeline-alt-item ${index % 2 === 0 ? 'lux-timeline-alt-item--left' : 'lux-timeline-alt-item--right'}`}
+              className={`lux-timeline-alt-item ${index % 2 === 0 ? "lux-timeline-alt-item--left" : "lux-timeline-alt-item--right"}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
@@ -305,7 +363,7 @@ export default function WeddingInvitation() {
                     alt={moment.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 280px"
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: "cover" }}
                   />
                 </figure>
               </div>
@@ -334,7 +392,7 @@ export default function WeddingInvitation() {
           >
             <h3 className="lux-timeline-checklist-header">Order of Events</h3>
             <div className="lux-timeline-checklist-items">
-              {weddingTimeline.map((item, index) => (
+              {WEDDING_TIMELINE.map((item, index) => (
                 <motion.div
                   key={`${item.time}-${item.title}`}
                   className="lux-timeline-checklist-item"
@@ -369,39 +427,6 @@ export default function WeddingInvitation() {
 
         <div className="lux-locations-grid">
           {EVENTS.map((event, index) => {
-            // Different icons for each event type
-            const getEventIcon = (idx: number) => {
-              if (idx === 0) {
-                // Wedding Rings icon (elegant)
-                return (
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2C10.9 2 10 2.9 10 4C10 5.1 10.9 6 12 6C13.1 6 14 5.1 14 4C14 2.9 13.1 2 12 2Z" />
-                    <circle cx="7" cy="14" r="5" />
-                    <circle cx="17" cy="14" r="5" />
-                    <path d="M7 9L17 9" />
-                  </svg>
-                );
-              } else if (idx === 1) {
-                // Elegant Heart icon
-                return (
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                    <path d="M3 3L4 4M20 3L21 4" />
-                  </svg>
-                );
-              } else {
-                // Champagne Glasses icon (celebration)
-                return (
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M6 2L8 10L6 18M18 2L16 10L18 18" />
-                    <path d="M6 18L6 22M18 18L18 22" />
-                    <path d="M4 22L8 22M16 22L20 22" />
-                    <path d="M8 10L16 10" />
-                  </svg>
-                );
-              }
-            };
-
             return (
               <article key={`${event.title}-${event.time}`} className="lux-location-card">
                 <div className="lux-location-card-icon">
@@ -427,7 +452,7 @@ export default function WeddingInvitation() {
         </div>
 
         <div className="lux-gallery-grid">
-          {galleryPhotos.map((photo, index) => (
+          {GALLERY_PHOTOS.map((photo, index) => (
             <motion.figure
               className={`lux-gallery-item lux-gallery-item--${(index % 8) + 1}`}
               key={photo.id}
@@ -468,7 +493,7 @@ export default function WeddingInvitation() {
           <h2 className="lux-title">Thông tin nhanh</h2>
 
           <div className="lux-faq-list">
-            {faqs.map((item) => (
+            {FAQS.map((item) => (
               <details key={item.question}>
                 <summary>{item.question}</summary>
                 <p>{item.answer}</p>

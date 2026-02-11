@@ -2,7 +2,7 @@
 "use client";
 
 import { AppConfig } from "@/app/types/config";
-import type { UpdateConfig } from "./types";
+import type { UpdateConfig } from "@/app/tool/generator/components/types";
 
 interface CoupleFormProps {
     config: AppConfig;

@@ -4,17 +4,17 @@ import { AppConfig, defaultConfig } from "@/app/types/config";
 import { LayoutTemplate, Loader2, Send } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import BankForm from "./components/BankForm";
-import CoupleForm from "./components/CoupleForm";
-import DressCodeForm from "./components/DressCodeForm";
-import EventsForm from "./components/EventsForm";
-import FormSection from "./components/FormSection";
-import GalleryForm from "./components/GalleryForm";
-import LoveStoryForm from "./components/LoveStoryForm";
-import MetaForm from "./components/MetaForm";
-import TimelineForm from "./components/TimelineForm";
-import ContactForm, { ContactInfo } from "./components/ContactForm";
-import type { UpdateConfig } from "./components/types";
+import BankForm from "@/app/tool/generator/components/BankForm";
+import ContactForm, { ContactInfo } from "@/app/tool/generator/components/ContactForm";
+import CoupleForm from "@/app/tool/generator/components/CoupleForm";
+import DressCodeForm from "@/app/tool/generator/components/DressCodeForm";
+import EventsForm from "@/app/tool/generator/components/EventsForm";
+import FormSection from "@/app/tool/generator/components/FormSection";
+import GalleryForm from "@/app/tool/generator/components/GalleryForm";
+import LoveStoryForm from "@/app/tool/generator/components/LoveStoryForm";
+import MetaForm from "@/app/tool/generator/components/MetaForm";
+import TimelineForm from "@/app/tool/generator/components/TimelineForm";
+import type { UpdateConfig } from "@/app/tool/generator/components/types";
 
 export default function ConfigGeneratorPage() {
     const [config, setConfig] = useState<AppConfig>(defaultConfig);

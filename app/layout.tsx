@@ -3,7 +3,7 @@ import { Cormorant_Garamond, Great_Vibes, Manrope, Playfair_Display, Dancing_Scr
 import "./styles/globals.css";
 
 import { CONFIG } from "@/app/lib/data";
-import { ThemeProvider } from "./layouts/ThemeProvider";
+import { ThemeProvider } from "@/app/layouts/ThemeProvider";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin", "vietnamese"],

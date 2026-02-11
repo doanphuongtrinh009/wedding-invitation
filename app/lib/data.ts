@@ -4,7 +4,7 @@ import { weddingConfig } from "@/app/config/wedding.config";
 
 export const WEDDING_DATE = weddingConfig.weddingDate;
 
-export const QUOTES = weddingConfig.quotes || [];
+export const QUOTES = weddingConfig.quotes ?? [];
 
 export const COUPLE = weddingConfig.couple;
 
@@ -19,9 +19,8 @@ export const INITIAL_MESSAGES: GuestMessage[] = weddingConfig.guestbook.initialM
 
 export const VENUE_MAP_EMBED = weddingConfig.venue.mapEmbedUrl;
 
-export const LOVE_STORY = weddingConfig.loveStory || [];
+export const LOVE_STORY = weddingConfig.loveStory ?? [];
 export const DRESS_CODE = weddingConfig.dressCode;
-export const BANK_INFO = weddingConfig.bankInfo || [];
+export const BANK_INFO = weddingConfig.bankInfo ?? [];
 
 export const CONFIG = weddingConfig; // Export full config for other uses
-

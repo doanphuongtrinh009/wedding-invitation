@@ -73,7 +73,7 @@ export interface BankAccount {
     accountName: string;
     branch?: string;
     qrImage: string;
-    template?: "compact" | "full";
+    template?: "compact" | "full" | "qr_only";
 }
 
 export interface Person {

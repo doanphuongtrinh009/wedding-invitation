@@ -19,11 +19,6 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Compress responses
   compress: true,
-  // Expose env vars to the browser (if needed) and server
-  env: {
-    GMAIL_USER: process.env.NEXT_PUBLIC_GMAIL_USER,
-    GMAIL_PASS: process.env.NEXT_PUBLIC_GMAIL_PASS,
-  },
 };
 
 export default nextConfig;

@@ -2,6 +2,8 @@
 
 import { useCallback } from "react";
 
+const NAV_HEIGHT = 80;
+
 export function useScrollToSection() {
     const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
@@ -12,8 +14,7 @@ export function useScrollToSection() {
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
-            const navHeight = 80; // Approximate nav height
-            const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navHeight;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
 
             window.scrollTo({
                 top: targetPosition,

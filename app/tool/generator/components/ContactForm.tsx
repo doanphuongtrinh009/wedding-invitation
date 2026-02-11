@@ -40,6 +40,7 @@ export default function ContactForm({ contact, setContact }: ContactFormProps) {
                         required
                         value={contact.name}
                         onChange={(e) => handleChange('name', e.target.value)}
+                        autoComplete="name"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Nguyễn Văn A"
                     />
@@ -47,10 +48,12 @@ export default function ContactForm({ contact, setContact }: ContactFormProps) {
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Số điện thoại / Zalo <span className="text-red-500">*</span></label>
                     <input
-                        type="text"
+                        type="tel"
                         required
                         value={contact.phone}
                         onChange={(e) => handleChange('phone', e.target.value)}
+                        autoComplete="tel"
+                        inputMode="tel"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="0912345678"
                     />
@@ -62,6 +65,7 @@ export default function ContactForm({ contact, setContact }: ContactFormProps) {
                         required
                         value={contact.email}
                         onChange={(e) => handleChange('email', e.target.value)}
+                        autoComplete="email"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="example@gmail.com"
                     />

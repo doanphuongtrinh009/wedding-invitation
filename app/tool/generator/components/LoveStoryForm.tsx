@@ -3,7 +3,7 @@
 
 import { AppConfig, LoveStoryEvent } from "@/app/types/config";
 import { Plus, Trash2 } from "lucide-react";
-import type { UpdateConfig } from "./types";
+import type { UpdateConfig } from "@/app/tool/generator/components/types";
 
 interface LoveStoryFormProps {
     config: AppConfig;
@@ -39,6 +39,8 @@ export default function LoveStoryForm({ config, updateConfig }: LoveStoryFormPro
             {stories.map((story, index) => (
                 <div key={index} className="relative p-4 border rounded-lg bg-gray-50 border-gray-200">
                     <button
+                        type="button"
+                        aria-label={`Xóa kỷ niệm ${index + 1}`}
                         onClick={() => handleRemoveStory(index)}
                         className="absolute top-2 right-2 p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded"
                         title="Xóa kỷ niệm"

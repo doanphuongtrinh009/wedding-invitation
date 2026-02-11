@@ -3,7 +3,7 @@
 
 import { AppConfig, GalleryImage } from "@/app/types/config";
 import { Plus, Trash2 } from "lucide-react";
-import type { UpdateConfig } from "./types";
+import type { UpdateConfig } from "@/app/tool/generator/components/types";
 
 interface GalleryFormProps {
     config: AppConfig;
@@ -50,6 +50,8 @@ export default function GalleryForm({ config, updateConfig }: GalleryFormProps) 
                             placeholder="https://..."
                         />
                         <button
+                            type="button"
+                            aria-label={`Xóa ảnh ${index + 1}`}
                             onClick={() => handleRemoveImage(index)}
                             className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded"
                             title="Xóa ảnh"

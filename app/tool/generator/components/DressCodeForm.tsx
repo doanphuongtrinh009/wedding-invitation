@@ -3,7 +3,7 @@
 
 import { AppConfig, ColorPalette } from "@/app/types/config";
 import { Plus, Trash2 } from "lucide-react";
-import type { UpdateConfig } from "./types";
+import type { UpdateConfig } from "@/app/tool/generator/components/types";
 
 interface DressCodeFormProps {
     config: AppConfig;
@@ -15,7 +15,7 @@ export default function DressCodeForm({ config, updateConfig }: DressCodeFormPro
 
     const handleTextChange = (field: 'description' | 'note', value: string) => {
         updateConfig("dressCode", { ...dressCode, [field]: value });
-    }
+    };
 
     const handleAddColor = () => {
         const newColor: ColorPalette = {
@@ -78,6 +78,8 @@ export default function DressCodeForm({ config, updateConfig }: DressCodeFormPro
                                 placeholder="Tên màu"
                             />
                             <button
+                                type="button"
+                                aria-label={`Xóa màu trang phục ${index + 1}`}
                                 onClick={() => handleRemoveColor(index)}
                                 className="text-red-500 hover:text-red-700"
                             >

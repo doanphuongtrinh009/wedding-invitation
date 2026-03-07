@@ -4,11 +4,11 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 
 interface MusicPillProps {
   src: string;
+  autoPlay?: boolean;
 }
 
-function MusicPillComponent({ src }: MusicPillProps) {
+function MusicPillComponent({ src, autoPlay = false }: MusicPillProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const hasAttemptedAutoplay = useRef(false);
   const [isReady, setIsReady] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -17,12 +17,17 @@ function MusicPillComponent({ src }: MusicPillProps) {
 
     const audio = new Audio(src);
     audio.loop = true;
+    audio.preload = "auto";
 
     const handleCanPlay = () => setIsReady(true);
     const handleEnded = () => setIsPlaying(false);
+    const handlePause = () => setIsPlaying(false);
+    const handlePlay = () => setIsPlaying(true);
 
     audio.addEventListener("canplaythrough", handleCanPlay);
     audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("pause", handlePause);
+    audio.addEventListener("play", handlePlay);
 
     audioRef.current = audio;
 
@@ -30,45 +35,20 @@ function MusicPillComponent({ src }: MusicPillProps) {
       audio.pause();
       audio.removeEventListener("canplaythrough", handleCanPlay);
       audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("play", handlePlay);
       audioRef.current = null;
     };
   }, [src]);
 
-  // Auto-play music when ready (only once)
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !isReady || hasAttemptedAutoplay.current) return;
+    if (!audio || !isReady || !autoPlay) return;
 
-    hasAttemptedAutoplay.current = true;
-
-    const playAudio = async () => {
-      try {
-        await audio.play();
-        setIsPlaying(true);
-      } catch {
-        // Aggressive playback trigger on ANY interaction
-        const enableAudio = async () => {
-          try {
-            await audio.play();
-            setIsPlaying(true);
-            // Remove all temporary listeners on success
-            ["click", "touchstart", "scroll", "mousemove", "keydown"].forEach(event =>
-              document.removeEventListener(event, enableAudio)
-            );
-          } catch {
-            // Still failing? Keep trying on next interaction
-          }
-        };
-
-        // Add listeners for almost any user activity
-        ["click", "touchstart", "scroll", "mousemove", "keydown"].forEach(event =>
-          document.addEventListener(event, enableAudio, { once: true, passive: true })
-        );
-      }
-    };
-
-    playAudio();
-  }, [isReady]);
+    void audio.play().catch(() => {
+      setIsPlaying(false);
+    });
+  }, [autoPlay, isReady]);
 
   const toggleMusic = useCallback(async () => {
     const audio = audioRef.current;
@@ -94,6 +74,7 @@ function MusicPillComponent({ src }: MusicPillProps) {
       className="lux-music-toggle"
       onClick={toggleMusic}
       disabled={!isReady}
+      aria-pressed={isPlaying}
       aria-label={isPlaying ? "Tắt nhạc nền" : "Bật nhạc nền"}
       title={isPlaying ? "Tạm dừng nhạc" : "Phát nhạc"}
     >

@@ -8,6 +8,12 @@ interface ContactPayload {
   driveLink?: string;
 }
 
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 5;
+const requestLog = new Map<string, { count: number; resetAt: number }>();
+
+export const runtime = "nodejs";
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
@@ -28,7 +34,73 @@ function getNestedString(
   return typeof value === "string" ? value : "Không có";
 }
 
+function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function isAllowedOrigin(request: Request) {
+  const origin = request.headers.get("origin");
+  const host = request.headers.get("host");
+
+  if (!origin || !host) {
+    return true;
+  }
+
+  try {
+    return new URL(origin).host === host;
+  } catch {
+    return false;
+  }
+}
+
+function getClientKey(request: Request) {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0]?.trim() || "unknown";
+  }
+
+  return request.headers.get("x-real-ip") || "unknown";
+}
+
+function isRateLimited(clientKey: string) {
+  const now = Date.now();
+
+  for (const [key, entry] of requestLog.entries()) {
+    if (entry.resetAt <= now) {
+      requestLog.delete(key);
+    }
+  }
+
+  const current = requestLog.get(clientKey);
+
+  if (!current || current.resetAt <= now) {
+    requestLog.set(clientKey, {
+      count: 1,
+      resetAt: now + RATE_LIMIT_WINDOW_MS,
+    });
+    return false;
+  }
+
+  if (current.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return true;
+  }
+
+  current.count += 1;
+  requestLog.set(clientKey, current);
+  return false;
+}
+
 export async function POST(request: Request) {
+  if (!isAllowedOrigin(request)) {
+    return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
+  }
+
+  const clientKey = getClientKey(request);
+  if (isRateLimited(clientKey)) {
+    return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+  }
+
   try {
     const body: unknown = await request.json();
     if (!isRecord(body)) {
@@ -48,23 +120,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing contact info" }, { status: 400 });
     }
 
+    const email = typeof contactSource.email === "string" ? contactSource.email.trim() : "";
+    if (email && !isValidEmail(email)) {
+      return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+    }
+
     const contact: ContactPayload = {
       name: name.trim(),
       phone: phone.trim(),
-      email: typeof contactSource.email === "string" ? contactSource.email : undefined,
-      driveLink: typeof contactSource.driveLink === "string" ? contactSource.driveLink : undefined,
+      email: email || undefined,
+      driveLink: typeof contactSource.driveLink === "string" ? contactSource.driveLink.trim() : undefined,
     };
 
-    const user = process.env.GMAIL_USER ?? process.env.NEXT_PUBLIC_GMAIL_USER;
-    const pass = process.env.GMAIL_PASS ?? process.env.NEXT_PUBLIC_GMAIL_PASS;
+    const user = process.env.GMAIL_USER;
+    const pass = process.env.GMAIL_PASS;
+    const adminEmail = process.env.ORDER_NOTIFICATION_EMAIL ?? user;
 
-    if (!user || !pass) {
-      console.error("Missing env vars:", {
-        user: Boolean(user),
-        pass: Boolean(pass),
-        env_user_exists: Boolean(process.env.NEXT_PUBLIC_GMAIL_USER),
-        env_pass_exists: Boolean(process.env.NEXT_PUBLIC_GMAIL_PASS),
-      });
+    if (!user || !pass || !adminEmail) {
       return NextResponse.json({ error: "Server misconfigured (missing credentials)" }, { status: 500 });
     }
 
@@ -80,9 +152,10 @@ export async function POST(request: Request) {
     const brideShortName = getNestedString(configSource, "couple", "bride", "shortName");
     const weddingDate = typeof configSource.weddingDate === "string" ? configSource.weddingDate : "Không có";
 
-    const mailOptions = {
+    await transporter.sendMail({
       from: `"Wedding Order" <${user}>`,
-      to: "soju220799@gmail.com", // Admin email
+      to: adminEmail,
+      replyTo: contact.email,
       subject: `[Đơn Hàng Mới] ${contact.name} - ${contact.phone}`,
       text: `
         Có đơn hàng làm thiệp mới!
@@ -91,7 +164,7 @@ export async function POST(request: Request) {
         - Tên: ${contact.name}
         - SĐT/Zalo: ${contact.phone}
         - Email: ${contact.email || "Không có"}
-        - Link ảnh: ${contact.driveLink || "Chưa có (sẽ gửi Zalo sau)"}
+        - Link ảnh: ${contact.driveLink || "Chưa có (sẽ gửi sau)"}
         
         THÔNG TIN ĐÁM CƯỚI:
         - Chú rể: ${groomShortName}
@@ -103,12 +176,10 @@ export async function POST(request: Request) {
       attachments: [
         {
           filename: "config.json",
-          content: JSON.stringify(configSource, null, 4),
+          content: JSON.stringify(configSource, null, 2),
         },
       ],
-    };
-
-    await transporter.sendMail(mailOptions);
+    });
 
     return NextResponse.json({ success: true, message: "Email sent successfully" });
   } catch (error) {

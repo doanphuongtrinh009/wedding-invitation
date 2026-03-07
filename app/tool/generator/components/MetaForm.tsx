@@ -91,6 +91,35 @@ export default function MetaForm({ config, updateConfig }: MetaFormProps) {
                 />
             </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Domain website</label>
+                    <input
+                        type="url"
+                        name="siteUrl"
+                        value={config.meta.siteUrl || ""}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                        placeholder="https://your-domain.com"
+                    />
+                </div>
+
+                <label className="flex items-center gap-3 self-end rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700">
+                    <input
+                        type="checkbox"
+                        checked={Boolean(config.meta.musicAutoplay)}
+                        onChange={(e) =>
+                            updateConfig("meta", {
+                                ...config.meta,
+                                musicAutoplay: e.target.checked,
+                            })
+                        }
+                        className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500"
+                    />
+                    <span>Tự phát nhạc khi người dùng bật trình phát</span>
+                </label>
+            </div>
+
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">SEO Keywords</label>
                 <input

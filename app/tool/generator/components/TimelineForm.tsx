@@ -17,7 +17,8 @@ export default function TimelineForm({ config, updateConfig }: TimelineFormProps
         const newEvent: TimelineEvent = {
             time: "18:00",
             title: "Hoạt động mới",
-            icon: "camera"
+            icon: "camera",
+            description: ""
         };
         updateConfig("timeline", [...timeline, newEvent]);
     };
@@ -84,6 +85,16 @@ export default function TimelineForm({ config, updateConfig }: TimelineFormProps
                                 <option value="cake">Cake (Cắt bánh)</option>
                                 <option value="heart">Heart (Yêu thương)</option>
                             </select>
+                        </div>
+                        <div className="md:col-span-3">
+                            <label className="block text-xs font-semibold text-gray-500 mb-1">Mô tả ngắn</label>
+                            <input
+                                type="text"
+                                value={event.description || ""}
+                                onChange={(e) => handleChange(index, "description", e.target.value)}
+                                className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm"
+                                placeholder="VD: Đón khách, check-in và chụp ảnh"
+                            />
                         </div>
                     </div>
                 </div>

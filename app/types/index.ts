@@ -1,4 +1,4 @@
-// Wedding invitation types
+// Các kiểu dữ liệu dùng cho website thiệp cưới
 
 export interface WeddingConfig {
     meta: {
@@ -8,6 +8,8 @@ export interface WeddingConfig {
         theme?: string;
         musicUrl: string;
         seoKeywords: string;
+        siteUrl?: string;
+        musicAutoplay?: boolean;
     };
     couple: {
         groom: Person;
@@ -27,6 +29,7 @@ export interface WeddingConfig {
     dressCode?: DressCodeConfig;
     bankInfo?: BankAccount[];
     quotes?: Quote[];
+    content?: InvitationContent;
     family?: {
         groom: {
             title: string;
@@ -46,6 +49,7 @@ export interface TimelineItem {
     time: string;
     title: string;
     icon: string;
+    description?: string;
 }
 
 export interface Quote {
@@ -64,6 +68,25 @@ export interface DressCodeConfig {
     description: string;
     note?: string;
     palette: Array<{ color: string; name: string }>;
+}
+
+export interface FaqItem {
+    question: string;
+    answer: string;
+}
+
+export interface InvitationContent {
+    heroKicker?: string;
+    heroHeadline?: string;
+    heroDescription?: string;
+    storyIntro?: string;
+    timelineIntro?: string;
+    scheduleIntro?: string;
+    galleryIntro?: string;
+    registryIntro?: string;
+    faqTitle?: string;
+    faqItems?: FaqItem[];
+    footerMessage?: string;
 }
 
 export interface BankAccount {
@@ -110,10 +133,4 @@ export interface Photo {
     id: number;
     src: string;
     alt: string;
-}
-
-export interface RSVPFormData {
-    name: string;
-    attending: "yes" | "no" | "maybe";
-    guests: number;
 }

@@ -5,7 +5,9 @@ export interface MetaConfig {
     themeColor: string;
     theme: 'luxury' | 'pastel' | 'traditional';
     musicUrl: string;
+    musicAutoplay?: boolean;
     seoKeywords: string;
+    siteUrl?: string;
 }
 
 export interface Person {
@@ -41,6 +43,7 @@ export interface TimelineEvent {
     time: string;
     title: string;
     icon: string;
+    description?: string;
 }
 
 export interface Quote {
@@ -129,6 +132,8 @@ export const defaultConfig: AppConfig = {
         themeColor: "#2D3E33",
         theme: "luxury",
         musicUrl: "/music/wedding-song.mp3",
+        musicAutoplay: false,
+        siteUrl: "",
         seoKeywords: "wedding, invitation"
     },
     couple: {

@@ -1,228 +1,101 @@
-# 💒 Premium Wedding Invitation Template
+# Wedding Invitation
 
-A modern, production-ready Next.js wedding invitation website with clean architecture and multi-theme support.
+Website thiệp cưới cá nhân xây bằng Next.js 16, React 19 và TypeScript.
 
-## ✨ Features
+Route chính là `/`. Repo vẫn giữ thêm hai khu phụ:
+- `/demo`: bộ concept giao diện để tham khảo, đã `noindex`
+- `/tool/generator`: form nội bộ để gửi cấu hình qua email, đã `noindex`
 
-- 🎨 **Multi-theme Support** - Luxury, Pastel, and Traditional themes
-- 📱 **Fully Responsive** - Beautiful on all devices
-- ⚡ **Optimized Performance** - Built with Next.js 16 and Turbopack
-- 🎵 **Background Music** - Elegant music player
-- 📝 **RSVP Form** - Guest confirmation system
-- 💌 **Guestbook** - Interactive message wall
-- 🎁 **Gift Registry** - Bank transfer with QR codes
-- 📸 **Photo Gallery** - Responsive masonry layout
-- ⏰ **Countdown Timer** - Days until the wedding
-- 🗺️ **Google Maps** - Embedded location map
-- 🎭 **Dress Code** - Color palette guide for guests
+## Stack
 
-## 📁 Project Structure
+- Next.js 16
+- React 19
+- TypeScript 5
+- Tailwind CSS 4
+- Framer Motion
+- Nodemailer
 
-```
-app/
-├── api/                    # API routes
-│   └── send-order/        # Order submission endpoint
-├── components/
-│   ├── layout/            # Layout components (Header, Footer, ThemeProvider)
-│   ├── sections/          # Page sections (Hero, Story, etc.)
-│   ├── shared/            # Reusable components (CountdownBoard, MusicPill)
-│   └── ui/                # UI primitives (buttons, inputs, etc.)
-├── features/              # Feature modules
-│   ├── rsvp/             # RSVP functionality
-│   ├── guestbook/        # Guestbook feature
-│   ├── registry/         # Gift registry
-│   ├── gallery/          # Photo gallery
-│   ├── events/           # Event schedule
-│   └── story/            # Love story
-├── config/               # Configuration files
-│   └── wedding.config.ts # Main wedding configuration
-├── utils/                # Utility functions
-│   └── data.ts          # Data adapter/exports
-├── styles/              # Global styles
-│   └── globals.css      # Main stylesheet
-├── types/               # TypeScript type definitions
-├── tool/                # Development tools
-│   └── generator/       # Config generator UI
-├── layout.tsx           # Root layout
-└── page.tsx            # Main page
-
-public/
-├── couple-photo.png     # Main couple photo
-├── floral-main.png      # Floral decoration
-├── qr-vcb.jpg          # Bank QR code (groom)
-├── qr-mb.jpg           # Bank QR code (bride)
-└── music/              # Background music
-
-docs/
-└── order-toolkit/       # Business documentation
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd wedding-invitation
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure your wedding data**
-   
-   Edit `app/config/wedding.config.ts` with your information:
-   - Couple names and photos
-   - Wedding date and venue
-   - Events schedule
-   - Love story
-   - Bank information
-   - Gallery photos
-
-4. **Add your assets**
-   
-   Place your files in the `public/` directory:
-   - `couple-photo.png` - Main couple photo
-   - `qr-vcb.jpg` - Groom's bank QR code
-   - `qr-mb.jpg` - Bride's bank QR code
-   - `music/wedding-song.mp3` - Background music
-
-5. **Run development server**
-   ```bash
-   npm run dev
-   ```
-
-6. **Open browser**
-   
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 🎨 Customization
-
-### Changing Theme
-
-Edit `app/config/wedding.config.ts`:
-
-```typescript
-meta: {
-  theme: "luxury", // Options: "luxury", "pastel", "traditional"
-  // ...
-}
-```
-
-### Styling
-
-All styles are in `app/styles/globals.css`. The design uses:
-- CSS custom properties for theming
-- Tailwind CSS v4 for utilities
-- Google Fonts (Cormorant Garamond, Playfair Display, Manrope, Great Vibes)
-
-### Adding New Sections
-
-1. Create component in `app/components/sections/`
-2. Import and add to `app/page.tsx`
-3. Add navigation link if needed
-
-## 🏗️ Build & Deploy
-
-### Build for Production
+## Chạy local
 
 ```bash
+npm install
+npm run dev
+```
+
+Mở [http://localhost:3000](http://localhost:3000).
+
+## File quan trọng
+
+- [app/config/wedding.config.ts](./app/config/wedding.config.ts): toàn bộ nội dung thiệp cưới
+- [app/page.tsx](./app/page.tsx): trang thiệp cưới chính
+- [app/layout.tsx](./app/layout.tsx): metadata, font, theme tokens
+- [app/styles/globals.css](./app/styles/globals.css): giao diện chính
+- [public](./public): ảnh, QR, nhạc
+
+## Cách cá nhân hóa nhanh
+
+1. Sửa dữ liệu trong `app/config/wedding.config.ts`
+2. Thay asset trong `public/`
+3. Nếu dùng domain thật, thêm `meta.siteUrl` trong config
+4. Build lại bằng `npm run build`
+
+Các phần nên sửa trong config:
+- `meta.title`, `meta.description`, `meta.seoKeywords`
+- `meta.siteUrl` khi đã có domain thật
+- `meta.musicUrl`, `meta.musicAutoplay`
+- `couple`, `events`, `timeline`, `loveStory`, `gallery`
+- `dressCode`, `bankInfo`
+- `content.heroHeadline`, `content.heroDescription`, `content.faqItems`, `content.footerMessage`
+
+## Asset mặc định
+
+Các file đang được dùng:
+- `public/couple-photo.png`
+- `public/floral-main.png`
+- `public/qr-vcb.jpg`
+- `public/qr-mb.jpg`
+- `public/music/wedding-song.mp3`
+
+Nếu bạn dùng ảnh từ domain ngoài, nhớ thêm domain đó vào `images.remotePatterns` trong [next.config.ts](./next.config.ts).
+
+## Email cho generator
+
+Generator dùng API route `app/api/send-order/route.ts`.
+
+Tạo file `.env.local` theo mẫu:
+
+```bash
+cp .env.example .env.local
+```
+
+Biến môi trường cần có:
+- `GMAIL_USER`
+- `GMAIL_PASS`
+- `ORDER_NOTIFICATION_EMAIL`
+
+Lưu ý:
+- Chỉ dùng server-side env, không dùng `NEXT_PUBLIC_*` cho secret
+- Nên dùng Gmail App Password
+- Nếu public generator ra internet, nên bổ sung captcha hoặc một dịch vụ form/email chuyên dụng
+
+## SEO
+
+- `/demo` và `/tool` đã được `noindex`
+- `robots.txt` và `sitemap.xml` được sinh từ `app/robots.ts` và `app/sitemap.ts`
+- `sitemap.xml` chỉ có dữ liệu khi bạn khai báo `meta.siteUrl`
+
+## Scripts
+
+```bash
+npm run dev
 npm run build
+npm run start
+npm run lint
 ```
 
-### Start Production Server
+## Trạng thái hiện tại
 
-```bash
-npm start
-```
-
-### Deploy to Vercel
-
-```bash
-vercel
-```
-
-Or connect your GitHub repository to Vercel for automatic deployments.
-
-## 📝 Configuration Reference
-
-### Wedding Config Structure
-
-```typescript
-{
-  meta: {
-    title: string;
-    description: string;
-    themeColor: string;
-    theme: "luxury" | "pastel" | "traditional";
-    musicUrl: string;
-    seoKeywords: string;
-  },
-  couple: {
-    groom: { name, shortName, image, description },
-    bride: { name, shortName, image, description },
-    coverImage: string
-  },
-  events: Array<{
-    title, icon, time, date, location, mapLink
-  }>,
-  loveStory: Array<{
-    date, title, description, image
-  }>,
-  gallery: Array<{
-    id, src, alt
-  }>,
-  dressCode: {
-    description, note, palette
-  },
-  bankInfo: Array<{
-    id, bankName, accountNumber, accountName, branch, qrImage
-  }>
-}
-```
-
-## 🛠️ Tech Stack
-
-- **Framework:** Next.js 16
-- **Language:** TypeScript 5
-- **Styling:** Tailwind CSS 4
-- **Icons:** Lucide React
-- **Fonts:** Google Fonts
-- **Email:** Nodemailer (for order notifications)
-
-## 📦 Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint
-
-## 🎯 Clean Architecture Principles
-
-This project follows clean architecture:
-
-- **Separation of Concerns** - Features are isolated
-- **Dependency Rule** - Dependencies point inward
-- **Testability** - Components are easily testable
-- **Scalability** - Easy to add new features
-- **Maintainability** - Clear structure and naming
-
-## 📄 License
-
-This is a commercial template. All rights reserved.
-
-## 🤝 Support
-
-For support, email your-email@example.com or create an issue in the repository.
-
----
-
-**Made with ❤️ for your special day**
+- Trang chính đã bỏ `RSVP` và `guestbook` mock để tránh gây hiểu nhầm
+- Timeline, FAQ, hero copy và footer message đã được kéo về config
+- Bản đồ nhúng lấy từ `venue.mapEmbedUrl`
+- Build và lint đang pass
